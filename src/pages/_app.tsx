@@ -5,6 +5,7 @@ import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
 import styled from 'styled-components';
 import Sidebar from '@/components/sidebar/Sidebar';
+import StyleSheetProvider from '@/components/styled-components/StyleSheetProvider';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -12,18 +13,16 @@ const geistSans = localFont({
 });
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const getLayout = () => {
-    return (
-      <Root className={geistSans.className}>
-        <Sidebar />
-        <Content>
-          <Component {...pageProps} />
-        </Content>
-      </Root>
-    );
-  };
+  const getLayout = () => (
+    <Root className={geistSans.className}>
+      <Sidebar />
+      <Content>
+        <Component {...pageProps} />
+      </Content>
+    </Root>
+  );
 
-  return getLayout();
+  return <StyleSheetProvider>{getLayout()}</StyleSheetProvider>;
 };
 
 const Root = styled.div`

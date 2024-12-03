@@ -6,8 +6,8 @@ import {
   onAuthStateChanged,
   User,
 } from 'firebase/auth';
-import theme from '@/utils/theme';
 import Button from '@/lib/buttons/Button';
+import { NormalTypography } from '@/lib/Typography';
 import { auth } from '../../utils/firebase/firebase';
 
 const AuthComponent = () => {
@@ -49,10 +49,15 @@ const AuthComponent = () => {
     <div>
       {signedInUser ? (
         <div>
-          <p style={{ color: theme.colors.white }}>
-            Welcome, {signedInUser.displayName}!
-          </p>
-          <Button onClick={handleSignOut}>Sign Out</Button>
+          <NormalTypography>
+            Welcome,
+            {' '}
+            {signedInUser.displayName}
+            !
+          </NormalTypography>
+          <Button onClick={handleSignOut} variant="secondary" color="charcoal">
+            Sign Out
+          </Button>
         </div>
       ) : (
         <Button onClick={signIn}>Sign In with Google</Button>

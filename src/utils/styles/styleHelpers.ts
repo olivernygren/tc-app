@@ -48,7 +48,7 @@ export const getBackgroundColor = (
       case 'charcoal':
         return theme.colors.silver;
       default:
-        return theme.colors.charcoal;
+        return theme.colors.charcoalSofter;
     }
   }
 
@@ -60,7 +60,7 @@ export const getBackgroundColor = (
         case 'gold':
           return theme.colors.goldDarker;
         case 'charcoal':
-          return theme.colors.charcoalSoft;
+          return theme.colors.charcoalSofter;
         default:
           return theme.colors.silverSofter;
       }
@@ -71,7 +71,7 @@ export const getBackgroundColor = (
         case 'gold':
           return theme.colors.gold;
         case 'charcoal':
-          return theme.colors.charcoal;
+          return theme.colors.white;
         default:
           return theme.colors.white;
       }
@@ -102,14 +102,16 @@ export const getBackgroundColor = (
     }
   }
 
-  switch (color) {
-    case 'gold':
-      return theme.colors.gold;
-    case 'charcoal':
-      return theme.colors.charcoal;
-    default:
-      return theme.colors.white;
-  }
+  // switch (color) {
+  //   case 'gold':
+  //     return theme.colors.gold;
+  //   case 'charcoal':
+  //     return theme.colors.charcoal;
+  //   default:
+  //     return theme.colors.white;
+  // }
+
+  return 'transparent';
 };
 
 export const getBorderColor = (
@@ -129,32 +131,34 @@ export const getBorderColor = (
   }
 
   if (state === 'hover') {
-    switch (color) {
-      case 'gold':
-        return theme.colors.goldDarker;
-      case 'charcoal':
-        return theme.colors.charcoalSofter;
-      default:
-        return theme.colors.silverSofter;
-    }
+    // switch (color) {
+    //   case 'gold':
+    //     return theme.colors.goldDarker;
+    //   case 'charcoal':
+    //     return theme.colors.silver;
+    //   default:
+    //     return theme.colors.silverSofter;
+    // }
+    return 'transparent';
   }
 
   if (state === 'active') {
-    switch (color) {
-      case 'gold':
-        return theme.colors.gold;
-      case 'charcoal':
-        return theme.colors.silver;
-      default:
-        return theme.colors.white;
-    }
+    // switch (color) {
+    //   case 'gold':
+    //     return theme.colors.gold;
+    //   case 'charcoal':
+    //     return theme.colors.silverSoft;
+    //   default:
+    //     return theme.colors.white;
+    // }
+    return 'transparent';
   }
 
   switch (color) {
     case 'gold':
       return theme.colors.gold;
     case 'charcoal':
-      return theme.colors.charcoalSoft;
+      return theme.colors.charcoalSofter;
     default:
       return theme.colors.white;
   }
@@ -176,13 +180,13 @@ export const getButtonHeight = (size: ButtonSizeType | undefined) => {
 export const getButtonPadding = (size: ButtonSizeType | undefined) => {
   switch (size) {
     case 's':
-      return `0 ${theme.spacing.xs}`;
+      return `0 ${theme.spacing.s}`;
     case 'm':
-      return `0 ${theme.spacing.s}`;
-    case 'l':
       return `0 ${theme.spacing.m}`;
+    case 'l':
+      return `0 ${theme.spacing.l}`;
     default:
-      return `0 ${theme.spacing.s}`;
+      return `0 ${theme.spacing.m}`;
   }
 };
 
@@ -190,6 +194,7 @@ export const getButtonIconColor = (
   variant: ButtonVariantType | undefined,
   color: ButtonColorType | undefined,
   disabled?: boolean,
+  state?: 'hover' | 'active',
 ) => {
   if (disabled) {
     if (variant === 'secondary') {
@@ -228,6 +233,7 @@ export const getButtonTextColor = (
   variant: ButtonVariantType | undefined,
   color: ButtonColorType,
   disabled?: boolean,
+  state?: 'hover' | 'active',
 ) => {
   if (disabled) {
     if (variant === 'secondary') {
@@ -243,14 +249,24 @@ export const getButtonTextColor = (
     }
   }
   if (variant === 'secondary') {
-    switch (color) {
-      case 'gold':
-        return theme.colors.gold;
-      case 'charcoal':
-        return theme.colors.white;
-      default:
-        return theme.colors.white;
+    if (state === 'active') {
+      switch (color) {
+        case 'gold':
+          return theme.colors.charcoal;
+        case 'charcoal':
+          return theme.colors.charcoal;
+        default:
+          return theme.colors.charcoal;
+      }
     }
+    // switch (color) {
+    //   case 'gold':
+    //     return theme.colors.gold;
+    //   case 'charcoal':
+    //     return theme.colors.white;
+    //   default:
+    //     return theme.colors.white;
+    // }
   }
   switch (color) {
     case 'gold':
@@ -290,10 +306,11 @@ export const getModalContentPadding = (
 ) => {
   if (noPadding) return '0';
 
-  if (isMobile)
+  if (isMobile) {
     return headerDivider
       ? `${theme.spacing.l}`
       : `0 ${theme.spacing.m} ${theme.spacing.m} ${theme.spacing.m}`;
+  }
 
   return headerDivider
     ? `${theme.spacing.m}`

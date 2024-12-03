@@ -4,14 +4,12 @@ import { styled } from 'styled-components';
 import { HeadingsTypography } from '@/lib/Typography';
 import AuthComponent from '../auth/AuthComponent';
 
-const Sidebar = () => {
-  return (
-    <Container>
-      <HeadingsTypography variant="h1">TC</HeadingsTypography>
-      <AuthComponent />
-    </Container>
-  );
-};
+const Sidebar = () => (
+  <Container>
+    <HeadingsTypography variant="h1">TC</HeadingsTypography>
+    <AuthComponent />
+  </Container>
+);
 
 const Container = styled.div`
   background-color: ${theme.colors.charcoalSoft};

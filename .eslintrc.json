@@ -1,49 +1,10 @@
-// {
-//   "root": true,
-//   // "extends": ["airbnb", "airbnb-typescript"],
-//   "parser": "@typescript-eslint/parser",
-//   "parserOptions": {
-//     "project": "./tsconfig.json"
-//   },
-//   "plugins": [
-//     "@typescript-eslint"
-//   ],
-//   "rules": {
-//     "@next/next/no-document-import-in-page": "off",
-//     "react/jsx-props-no-spreading": "off",
-//     "linebreak-style": "off",
-//     "import/no-extraneous-dependencies": "off",
-//     "@typescript-eslint/no-use-before-define": "off",
-//     "max-len": "off",
-//     "react/no-array-index-key": "off",
-//     "jsx-a11y/anchor-is-valid": "off",
-//     "jsx-a11y/media-has-caption": "off",
-//     "react/require-default-props": "off",
-//     "radix": "off",
-//     "react/no-param-reassign": "off",
-//     "react/function-component-definition": "off",
-//     "consistent-return": "off",
-//     "@typescript-eslint/no-shadow": "off",
-//     "@typescript-eslint/no-unused-vars": "warn",
-//     "react/react-in-jsx-scope": "off",
-//     "@typescript-eslint/no-explicit-any": "off",
-//     "@typescript-eslint/brace-style": "off",
-//     "@typescript-eslint/comma-dangle": "off"
-//   }
-// }
-
 {
   "root": true,
-  "extends": [
-    "airbnb",
-    "airbnb-typescript",
-    "next/core-web-vitals",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["airbnb", "airbnb-typescript", "next/core-web-vitals"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "ignorePatterns": ["next.config.js", "next-i18next.config.js"],
+  "ignorePatterns": ["next.config.mjs", "next-sitemap.config.js"],
   "parser": "@typescript-eslint/parser",
   "settings": {
     "next": {
@@ -61,9 +22,9 @@
     "jsx-a11y/anchor-is-valid": "off",
     "jsx-a11y/media-has-caption": "off",
     "react/require-default-props": "off",
-    "semi": "off",
-    "@typescript-eslint/semi": "off",
-    "react/button-has-type": "off",
-    "react/function-component-definition": "off"
+    "@typescript-eslint/comma-dangle": "off",
+    "react/function-component-definition": "off",
+    "import/prefer-default-export": "off",
+    "radix": "off"
   }
 }

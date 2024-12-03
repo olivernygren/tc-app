@@ -1,8 +1,12 @@
 {
   "semi": true,
-  "trailingComma": "all",
+  "trailingComma": "none",
   "singleQuote": true,
+  "printWidth": 100,
   "tabWidth": 2,
   "bracketSpacing": true,
-  "jsxSingleQuote": false
+  "jsxSingleQuote": false,
+  "react/self-closing-comp": true,
+  "no-else-after-return": true,
+  "implicit-arrow-linebreak": false
 }

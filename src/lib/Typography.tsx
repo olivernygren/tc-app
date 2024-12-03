@@ -288,10 +288,8 @@ const RootTypography = styled.div<RootTypographyProps>`
   text-align: ${({ align }) => align || 'left'};
   cursor: ${({ pointer }) => (pointer ? 'pointer' : 'auto')};
   white-space: ${({ noWrap }) => (noWrap ? 'nowrap' : 'normal')};
-  overflow: ${({ overflowEllipsis }) =>
-    overflowEllipsis ? 'hidden' : 'visible'};
-  text-overflow: ${({ overflowEllipsis }) =>
-    overflowEllipsis ? 'ellipsis' : 'clip'};
+  overflow: ${({ overflowEllipsis }) => (overflowEllipsis ? 'hidden' : 'visible')};
+  text-overflow: ${({ overflowEllipsis }) => (overflowEllipsis ? 'ellipsis' : 'clip')};
   transition: color 0.2s ease;
 `;
 
