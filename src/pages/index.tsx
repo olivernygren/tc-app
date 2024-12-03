@@ -2,6 +2,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import TCHead from '@/components/head/TCHead';
 import theme from '@/utils/theme';
+import { HeadingsTypography } from '@/lib/Typography';
 
 export async function getStaticProps(context: any) {
   return {
@@ -25,7 +26,7 @@ export default function HomePage({ users }: HomePageProps) {
     <>
       <TCHead title="TC | Home" />
       <div>
-        <h1 style={{ color: theme.colors.white }}>Hello, world!</h1>
+        <HeadingsTypography variant="h1">Hello, world!</HeadingsTypography>
         <p style={{ color: theme.colors.white }}>{t('test')}</p>
         {users?.map((user: any) => (
           <div key={user.documentId}>

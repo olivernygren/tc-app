@@ -27,11 +27,11 @@ const App = ({ Component, pageProps }: AppProps) => {
 };
 
 const Root = styled.div`
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 320px 1fr;
   gap: ${theme.spacing.m};
   min-height: 100dvh;
-  background-color: ${theme.colors.black};
+  background-color: ${theme.colors.charcoal};
   padding: ${theme.spacing.m};
 `;
 
@@ -40,7 +40,6 @@ const Content = styled.div`
   flex-direction: column;
   gap: ${theme.spacing.m};
   width: 100%;
-  flex-grow: 1;
 `;
 
 export default appWithTranslation(App);

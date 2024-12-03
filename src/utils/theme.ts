@@ -8,8 +8,13 @@ const theme = {
     charcoalSoft: '#303030',
     charcoalSofter: '#464646',
     charcoalBleach: '#5E5E5E',
+    silverDarker: '#5E5E5E',
     silverDark: '#7B7E83',
     silver: '#A3A8B0',
+    silverSoft: '#C7CCD4',
+    silverSofter: '#E0E5ED',
+    silverBleach: '#F0F3F7',
+    silverFade: '#F8FAFC',
     goldDarker: '#615435',
     goldDark: '#A28747',
     gold: '#FFC845',
@@ -51,12 +56,9 @@ const theme = {
 };
 
 export const devices = {
-  mobile: '(min-width: 375px)',
-  mobileL: '(min-width: 475px)',
-  tablet: '(min-width: 768px)',
-  laptop: '(min-width: 1024px)',
-  desktop: '(min-width: 1440px)',
-  desktopL: '(min-width: 2560px)',
+  laptop: '(max-width: 1024px)', // For tablets or smaller
+  tablet: '(max-width: 768px)', // For large mobiles or smaller
+  mobile: '(max-width: 480px)', // For mobile devices
 };
 
 export default theme;

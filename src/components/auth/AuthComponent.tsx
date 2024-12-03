@@ -7,6 +7,7 @@ import {
   User,
 } from 'firebase/auth';
 import theme from '@/utils/theme';
+import Button from '@/lib/buttons/Button';
 import { auth } from '../../utils/firebase/firebase';
 
 const AuthComponent = () => {
@@ -51,10 +52,10 @@ const AuthComponent = () => {
           <p style={{ color: theme.colors.white }}>
             Welcome, {signedInUser.displayName}!
           </p>
-          <button onClick={handleSignOut}>Sign Out</button>
+          <Button onClick={handleSignOut}>Sign Out</Button>
         </div>
       ) : (
-        <button onClick={signIn}>Sign In with Google</button>
+        <Button onClick={signIn}>Sign In with Google</Button>
       )}
     </div>
   );
