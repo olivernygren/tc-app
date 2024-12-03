@@ -62,6 +62,8 @@
     "jsx-a11y/media-has-caption": "off",
     "react/require-default-props": "off",
     "semi": "off",
-    "@typescript-eslint/semi": "off"
+    "@typescript-eslint/semi": "off",
+    "react/button-has-type": "off",
+    "react/function-component-definition": "off"
   }
 }
