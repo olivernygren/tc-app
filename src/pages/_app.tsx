@@ -32,6 +32,7 @@ const Root = styled.div`
   min-height: 100dvh;
   background-color: ${theme.colors.charcoal};
   padding: ${theme.spacing.m};
+  overflow: hidden;
 `;
 
 const Content = styled.div`
@@ -39,6 +40,7 @@ const Content = styled.div`
   flex-direction: column;
   gap: ${theme.spacing.m};
   width: 100%;
+  overflow-y: auto;
 `;
 
 export default appWithTranslation(App);

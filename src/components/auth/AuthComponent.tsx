@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import {
-  GoogleAuthProvider,
   signInWithPopup,
   signOut,
   onAuthStateChanged,
@@ -8,12 +7,11 @@ import {
 } from 'firebase/auth';
 import Button from '@/lib/buttons/Button';
 import { NormalTypography } from '@/lib/Typography';
-import { auth } from '../../utils/firebase/firebase';
+import theme from '@/utils/theme';
+import { auth, provider } from '../../utils/firebase/firebase';
 
 const AuthComponent = () => {
   const [signedInUser, setSignedInUser] = useState<User | null>(null);
-
-  const provider = new GoogleAuthProvider();
 
   // Sign in with Google
   const signIn = async () => {
@@ -46,16 +44,24 @@ const AuthComponent = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{
+      marginTop: 'auto'
+    }}
+    >
       {signedInUser ? (
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: theme.spacing.s }}>
           <NormalTypography>
             Welcome,
             {' '}
             {signedInUser.displayName}
             !
           </NormalTypography>
-          <Button onClick={handleSignOut} variant="secondary" color="charcoal">
+          <Button
+            onClick={handleSignOut}
+            variant="secondary"
+            color="charcoal"
+            fullWidth
+          >
             Sign Out
           </Button>
         </div>

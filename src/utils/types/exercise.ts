@@ -7,6 +7,36 @@ export interface Exercise {
   secondaryMuscleGroups?: Array<MuscleGroupsEnum | SubMuscleGroupsEnum>;
   fatigue?: ExerciseFatigueEnum;
   rangeOfMotionBias?: RangeOfMotionBiasEnum;
+  creatorId: string;
+  isCustomExercise?: boolean;
+}
+
+export interface ExerciseInstance {
+  exercise: Exercise;
+  sets: Array<ExerciseSet>;
+  notes?: Array<string>;
+}
+
+export interface SupersetInstance {
+  firstExercise: ExerciseInstance;
+  secondExercise: ExerciseInstance;
+}
+
+export type ExerciseInstanceType = ExerciseInstance | SupersetInstance;
+
+export interface ExerciseSet {
+  load?: ExerciseLoad;
+  completedReps?: number;
+  type: ExerciseSetTypeEnum;
+  wasSkipped?: boolean;
+  targetRIR?: number;
+  actualRIR?: number;
+  isCompleted: boolean;
+}
+
+export interface ExerciseLoad {
+  weight: number;
+  unit: ExerciseLoadUnitEnum;
 }
 
 export interface ExerciseInput {
@@ -17,6 +47,13 @@ export interface ExerciseInput {
   secondaryMuscleGroups?: Array<MuscleGroupsEnum | SubMuscleGroupsEnum>;
   fatigue?: ExerciseFatigueEnum;
   rangeOfMotionBias?: RangeOfMotionBiasEnum;
+  creatorId?: string;
+  isCustomExercise?: boolean;
+}
+
+export interface ExerciseProgressHistory {
+  exercise: Exercise;
+  sets: Array<ExerciseSet>;
 }
 
 export enum ExerciseEquipmentEnum {
@@ -28,6 +65,7 @@ export enum ExerciseEquipmentEnum {
   CABLE = 'Cable',
   MACHINE = 'Machine',
   ASSISTED_MACHINE = 'Assisted Machine',
+  SMITH_MACHINE = 'Smith Machine',
 }
 
 export enum MuscleGroupsEnum {
@@ -77,4 +115,16 @@ export enum RangeOfMotionBiasEnum {
   SHORTENED = 'Shortened',
   LENGTHENED = 'Lengthened',
   MID = 'Mid',
+}
+
+export enum ExerciseLoadUnitEnum {
+  KG = 'kg',
+  LBS = 'lbs',
+}
+
+export enum ExerciseSetTypeEnum {
+  STRAIGHT_SET = 'Straight set',
+  MYOREPS = 'Myoreps',
+  MYOREP_MATCH = 'Myorep match',
+  DROP_SET = 'Drop set',
 }

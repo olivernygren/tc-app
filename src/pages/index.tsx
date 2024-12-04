@@ -6,7 +6,7 @@ import { EmphasisTypography, HeadingsTypography, NormalTypography } from '@/lib/
 import styled from 'styled-components';
 import { useState } from 'react';
 import {
-  ExerciseEquipmentEnum, ExerciseFatigueEnum, MuscleGroupsEnum, RangeOfMotionBiasEnum, SubMuscleGroupsEnum
+  ExerciseEquipmentEnum, ExerciseFatigueEnum, ExerciseInput, MuscleGroupsEnum, RangeOfMotionBiasEnum, SubMuscleGroupsEnum
 } from '@/utils/types/exercise';
 import { createExercise } from '@/utils/resolvers/exercises';
 import Button from '@/lib/buttons/Button';
@@ -35,8 +35,9 @@ export const HomePage = ({ users }: HomePageProps) => {
   const [rangeOfMotionBias, setRangeOfMotionBias] = useState<RangeOfMotionBiasEnum>(RangeOfMotionBiasEnum.SHORTENED);
 
   const handleSecondaryMusclesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOptions = Array.from(e.currentTarget.selectedOptions, (option) => option.value as MuscleGroupsEnum | SubMuscleGroupsEnum);
-    setExerciseSecondaryMuscles(selectedOptions);
+    // const selectedOptions = Array.from(e.currentTarget.selectedOptions, (option) => option.value as MuscleGroupsEnum | SubMuscleGroupsEnum);
+    console.log(e);
+    setExerciseSecondaryMuscles((prev) => [...prev, e.target.value as MuscleGroupsEnum | SubMuscleGroupsEnum]);
   };
 
   const handleReset = () => {
@@ -53,16 +54,23 @@ export const HomePage = ({ users }: HomePageProps) => {
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const capitalizedValue = capitalizeFirstLetterOfEachWord(e.currentTarget.value);
     setExerciseName(capitalizedValue);
+
+    if (Object.values(ExerciseEquipmentEnum).some((equipment) => capitalizedValue.includes(equipment))) {
+      const matchingEquipment = Object.values(ExerciseEquipmentEnum).find((equipment) => capitalizedValue.includes(equipment));
+      setExerciseEquipment(matchingEquipment as ExerciseEquipmentEnum);
+    }
   };
 
   const handleSubmit = async () => {
-    const input = {
+    const input: ExerciseInput = {
       name: exerciseName,
       equipment: exerciseEquipment,
       primaryMuscleGroup: exercisePrimaryMuscle,
       secondaryMuscleGroups: exerciseSecondaryMuscles,
       fatigue: exerciseFatigue,
       rangeOfMotionBias,
+      creatorId: 'TC',
+      isCustomExercise: false,
     };
 
     try {

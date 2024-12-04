@@ -1,17 +1,16 @@
-/** @type {import('next').NextConfig} */
-
-import type { NextConfig } from 'next';
-
+const withTM = require('next-transpile-modules')(['react-haiku']); // Add react-haiku to the transpile list
 const { i18n } = require('./next-i18next.config');
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = withTM({
   reactStrictMode: true,
+  swcMinify: true,
   compiler: {
     styledComponents: {
       ssr: true,
     },
   },
   i18n,
-};
+});
 
-export default nextConfig;
+module.exports = nextConfig;

@@ -51,9 +51,8 @@ const Button = ({
   id,
   type = 'button',
 }: ButtonProps) => {
-  const [buttonState, setButtonState] = useState<
-  'regular' | 'hover' | 'active'
-  >('regular');
+  const [buttonState, setButtonState] = useState<'regular' | 'hover' | 'active'>('regular');
+
   return (
     <StyledButton
       variant={variant || 'primary'}
