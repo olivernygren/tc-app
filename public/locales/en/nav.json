@@ -1,0 +1,11 @@
+{
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "programs": "Programs",
+    "exercises": "Exercises",
+    "progress": "Progress",
+    "settings": "Settings",
+    "profile": "Profile",
+    "logout": "Log out"
+  }
+}

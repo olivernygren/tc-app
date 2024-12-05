@@ -1,0 +1,11 @@
+{
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "programs": "Program",
+    "exercises": "Övningar",
+    "progress": "Framsteg",
+    "settings": "Inställningar",
+    "profile": "Profil",
+    "logout": "Logga ut"
+  }
+}
