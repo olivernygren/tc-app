@@ -4,7 +4,6 @@ const { i18n } = require('./next-i18next.config');
 /** @type {import('next').NextConfig} */
 const nextConfig = withTM({
   reactStrictMode: true,
-  swcMinify: true,
   compiler: {
     styledComponents: {
       ssr: true,

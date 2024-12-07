@@ -1,0 +1,12 @@
+{
+  "settings": "Settings",
+  "swedish": "Svenska",
+  "english": "English",
+  "meta-title": "TC | Settings",
+  "preferences": "Preferences",
+  "membership": "Membership",
+  "language": "Language",
+  "preferred-language-on-platform": "Select your preferred language for the app.",
+  "weight-unit": "Weights unit",
+  "preferred-weight-unit": "Select your preferred weight unit (this can be altered on a per exercise basis)."
+}

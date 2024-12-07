@@ -109,7 +109,7 @@ const StyledButton = styled.button<ButtonProps>`
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'fit-content')};
   padding: ${({ size }) => getButtonPadding(size)};
   height: ${({ size }) => getButtonHeight(size)};
-  border-radius: ${({ size }) => (size === 's' ? theme.borderRadius.m : theme.borderRadius.l)};
+  border-radius: ${({ size }) => (size === 's' ? '10px' : theme.borderRadius.l)};
   background-color: ${({ color, variant, disabled }) => getBackgroundColor(variant, color!, disabled)};
   cursor: pointer;
   display: flex;
@@ -118,10 +118,12 @@ const StyledButton = styled.button<ButtonProps>`
   gap: ${({ size }) => (size === 's' ? '6px' : theme.spacing.xxs)};
   transition: all 0.2s ease;
 
-  ${({ variant, color, disabled }) => (variant === 'secondary'
+  ${({
+    variant, color, disabled, size
+  }) => (variant === 'secondary'
     ? css`
       border-color: ${getBorderColor(color, disabled)};
-      border-width: 1.5px;
+      border-width: ${size === 's' ? '1px' : '1.5px'};
       border-style: solid;
     `
     : css`

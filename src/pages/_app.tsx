@@ -12,6 +12,7 @@ import { auth } from '@/utils/firebase/firebase';
 import { NormalTypography } from '@/lib/Typography';
 import Spinner from '@/lib/loading/Spinner';
 import { UserProvider } from '@/context/UserProvider';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -38,7 +39,12 @@ const App = ({ Component, pageProps }: AppProps) => {
   const getLayout = () => (
     <Root className={geistSans.className}>
       <Sidebar />
-      <Content>
+      <Content
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ ease: 'easeInOut', duration: 0.75 }}
+      >
         {loading && getLoadingAnimation()}
         {!loading && user && <Component {...pageProps} />}
         {!loading && !user && (
@@ -53,7 +59,9 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <UserProvider>
       <StyleSheetProvider>
-        {getLayout()}
+        <AnimatePresence mode="wait">
+          {getLayout()}
+        </AnimatePresence>
       </StyleSheetProvider>
     </UserProvider>
   );
@@ -69,7 +77,7 @@ const Root = styled.div`
   overflow: hidden;
 `;
 
-const Content = styled.div`
+const Content = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.m};

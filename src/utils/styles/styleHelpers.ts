@@ -1,11 +1,10 @@
-import styled from 'styled-components';
 import {
   ButtonColorType,
   ButtonSizeType,
   ButtonVariantType,
   ModalSizeType,
 } from '@/utils/types/elements';
-import theme, { devices } from '../theme';
+import theme from '../theme';
 
 export const setSvgColor = (color: string): string => `
   svg {
@@ -83,7 +82,7 @@ export const getBackgroundColor = (
   if (state === 'hover') {
     switch (color) {
       case 'gold':
-        return theme.colors.goldDarker;
+        return theme.colors.goldSoft;
       case 'charcoal':
         return theme.colors.charcoalSoft;
       default:
@@ -94,7 +93,7 @@ export const getBackgroundColor = (
   if (state === 'active') {
     switch (color) {
       case 'gold':
-        return theme.colors.goldDarker;
+        return theme.colors.goldSoft;
       case 'charcoal':
         return theme.colors.silver;
       default:
@@ -241,7 +240,7 @@ export const getButtonTextColor = (
     }
     switch (color) {
       case 'gold':
-        return theme.colors.charcoal;
+        return theme.colors.goldDark;
       case 'charcoal':
         return theme.colors.silver;
       default:
@@ -259,14 +258,14 @@ export const getButtonTextColor = (
           return theme.colors.charcoal;
       }
     }
-    // switch (color) {
-    //   case 'gold':
-    //     return theme.colors.gold;
-    //   case 'charcoal':
-    //     return theme.colors.white;
-    //   default:
-    //     return theme.colors.white;
-    // }
+    switch (color) {
+      case 'gold':
+        return theme.colors.gold;
+      case 'charcoal':
+        return theme.colors.white;
+      default:
+        return theme.colors.white;
+    }
   }
   switch (color) {
     case 'gold':
@@ -327,22 +326,3 @@ export const getModalBorderRadius = (
     ? `${theme.borderRadius.l} ${theme.borderRadius.l} 0 0`
     : theme.borderRadius.l;
 };
-
-export const getCustomMediaQuery = (size: string) => `(max-width: ${size})`;
-
-export const ColumnLayout = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: ${theme.spacing.m};
-
-  @media ${devices.laptop} {
-    display: flex;
-    flex-direction: column;
-    /* grid-template-columns: 1fr;
-    grid-template-rows: auto; */
-  }
-
-  @media ${devices.tablet} {
-    gap: ${theme.spacing.s};
-  }
-`;

@@ -67,7 +67,7 @@ const getFontStyling = (options: FontStylingOptions): string => `
 
 const headingFontWeight = 700;
 const normalFontWeight = 400;
-const emphasisFontWeight = 500;
+const emphasisFontWeight = 600;
 const buttonFontWeight = 500;
 const labelFontWeight = 500;
 

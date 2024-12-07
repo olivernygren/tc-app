@@ -12,5 +12,9 @@ export enum RoutesEnum {
   SETTINGS = '/settings',
   PROFILE = '/profile',
   ADMIN = '/admin',
+}
 
+export enum LocaleEnum {
+  EN = 'en',
+  SV = 'sv',
 }

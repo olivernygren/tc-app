@@ -1,4 +1,4 @@
-import { EmphasisTypography } from '@/lib/Typography';
+import { NormalTypography } from '@/lib/Typography';
 import theme from '@/utils/theme';
 import Link from 'next/link';
 import React from 'react';
@@ -17,9 +17,9 @@ const SidebarNavButton = ({
   <Link href={href}>
     <StyledNavButton isActive={isActive}>
       {icon}
-      <EmphasisTypography color={isActive ? theme.colors.gold : theme.colors.white}>
+      <NormalTypography color={isActive ? theme.colors.gold : theme.colors.white}>
         {text}
-      </EmphasisTypography>
+      </NormalTypography>
     </StyledNavButton>
   </Link>
 );
@@ -32,11 +32,12 @@ const StyledNavButton = styled.div<{ isActive: boolean }>`
   height: 52px;
   border-radius: 10px;
   cursor: ${({ isActive }) => (isActive ? 'default' : 'pointer')};
-  transition: background-color 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
   background-color: ${({ isActive }) => (isActive ? theme.colors.charcoalSofter : 'transparent')};
 
   &:hover {
     background-color: ${theme.colors.charcoalSofter};
+    transform: scale(${({ isActive }) => (isActive ? 1 : 1.02)});
   }
 `;
 

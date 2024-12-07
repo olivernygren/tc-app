@@ -232,7 +232,6 @@ const BottomLinks = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.xxs};
-  /* margin-top: auto; */
 `;
 
 export default Sidebar;

@@ -49,7 +49,6 @@ const AuthComponent = () => {
     try {
       await signOut(auth);
       setSignedInUser(null);
-      console.log('User signed out');
       sessionStorage.removeItem('user');
     } catch (error) {
       console.error('Error signing out:', error);
@@ -58,7 +57,8 @@ const AuthComponent = () => {
 
   return (
     <div style={{
-      marginTop: 'auto'
+      marginTop: 'auto',
+      padding: `${theme.spacing.xxxs} ${theme.spacing.xs}`,
     }}
     >
       {signedInUser ? (
