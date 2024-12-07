@@ -1,5 +1,5 @@
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../firebase/firebase';
+import { db } from '../firebase/firebaseClient';
 import { FirestoreCollectionEnum } from '../enums/enums';
 import { ExerciseInput } from '../types/exercise';
 

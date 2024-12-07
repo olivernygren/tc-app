@@ -6,7 +6,7 @@ import { getDoc, doc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import Cookies from 'js-cookie';
 import { User } from '@/utils/types/user';
-import { auth, db } from '@/utils/firebase/firebase';
+import { auth, clientDb } from '@/utils/firebase/firebaseClient';
 import { withDocumentIdOnSingleObject } from '@/utils/firebase/firebaseHelpers';
 import { FirestoreCollectionEnum } from '../utils/enums/enums';
 
@@ -20,14 +20,11 @@ const UserContext = createContext<UserContextProps>({ user: null, hasAdminRights
 export const useUser = () => useContext(UserContext);
 
 export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(() => {
-    const storedUser = Cookies.get('user');
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
-  const [hasAdminRights, setHasAdminRights] = useState<boolean>(() => {
-    const storedUser = Cookies.get('user');
-    return storedUser ? JSON.parse(storedUser).role === 'ADMIN' : false;
-  });
+  const [user, setUser] = useState<User | null>(null);
+  const [hasAdminRights, setHasAdminRights] = useState<boolean>(() =>
+    // const storedUser = Cookies.get('user');
+    // return storedUser ? JSON.parse(storedUser).role === 'ADMIN' : false;
+    true);
   const [loading, setLoading] = useState<boolean>(true);
 
   const contextValue = useMemo(() => ({ user, hasAdminRights }), [user, hasAdminRights]);
@@ -35,15 +32,13 @@ export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (userObj) => {
       if (userObj) {
-        const userDocRef = doc(db, FirestoreCollectionEnum.USERS, userObj.uid);
-        console.log(userObj.uid);
-
+        const userDocRef = doc(clientDb, FirestoreCollectionEnum.USERS, userObj.uid);
         const userDocSnap = await getDoc(userDocRef);
 
         if (userDocSnap.exists()) {
           const userWithDocId = withDocumentIdOnSingleObject<User>(userDocSnap);
           setUser(userWithDocId);
-          Cookies.set('user', JSON.stringify(userWithDocId), { expires: 365 * 3, secure: true, sameSite: 'strict' });
+          Cookies.set('user', userWithDocId.documentId, { expires: 365 * 3, secure: true, sameSite: 'strict' });
           if (userWithDocId?.role === 'ADMIN') {
             setHasAdminRights(true);
           }

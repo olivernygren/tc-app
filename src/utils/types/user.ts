@@ -2,7 +2,7 @@ import { LocaleEnum } from '../enums/enums';
 import { ExerciseLoadUnitEnum } from './exercise';
 
 export interface User {
-  documentId: string;
+  id: string;
   email: string;
   name: string;
   username?: string;

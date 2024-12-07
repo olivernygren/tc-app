@@ -1,7 +1,7 @@
 import {
   collection, doc, getDocs, setDoc
 } from 'firebase/firestore';
-import { db } from '../firebase/firebase';
+import { clientDb } from '../firebase/firebaseClient';
 import { FirestoreCollectionEnum } from '../enums/enums';
 import { withDocumentIdOnObjectsInArray } from '../firebase/firebaseHelpers';
 import { UpdateUserPreferencesInput } from '../types/user';
@@ -9,7 +9,7 @@ import { UpdateUserPreferencesInput } from '../types/user';
 // eslint-disable-next-line import/prefer-default-export
 export const getUsers = async () => {
   try {
-    const usersCollection = collection(db, FirestoreCollectionEnum.USERS);
+    const usersCollection = collection(clientDb, FirestoreCollectionEnum.USERS);
     const workoutSnapshot = await getDocs(usersCollection);
     return withDocumentIdOnObjectsInArray(workoutSnapshot.docs);
   } catch (error) {
@@ -30,7 +30,7 @@ export const updateUserPreferences = async (userId: string, preferences: UpdateU
   };
 
   try {
-    const userDoc = doc(db, FirestoreCollectionEnum.USERS, userId);
+    const userDoc = doc(clientDb, FirestoreCollectionEnum.USERS, userId);
     await setDoc(userDoc, { preferences: updatedPreferences }, { merge: true });
     return true;
   } catch (error) {

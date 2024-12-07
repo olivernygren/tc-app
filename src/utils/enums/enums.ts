@@ -12,6 +12,7 @@ export enum RoutesEnum {
   SETTINGS = '/settings',
   PROFILE = '/profile',
   ADMIN = '/admin',
+  LOGIN = '/login',
 }
 
 export enum LocaleEnum {

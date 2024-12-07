@@ -27,7 +27,7 @@ export const HomePage = ({ users }: HomePageProps) => {
         <HeadingsTypography variant="h1">Training Central</HeadingsTypography>
         <EmphasisTypography>{t('test')}</EmphasisTypography>
         {users?.map((user: any) => (
-          <div key={user.documentId}>
+          <div key={user.id}>
             <p style={{ color: theme.colors.white }}>{user.email}</p>
           </div>
         ))}

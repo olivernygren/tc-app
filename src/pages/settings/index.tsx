@@ -1,15 +1,16 @@
 import TCHead from '@/components/head/TCHead';
 import PageLayout from '@/components/layout/PageLayout';
-import { useUser } from '@/context/UserProvider';
 import Select from '@/lib/inputs/Select';
 import Spinner from '@/lib/loading/Spinner';
 import TabBar from '@/lib/tabs/TabBar';
 import TabBarButton from '@/lib/tabs/TabBarButton';
 import { EmphasisTypography, HeadingsTypography, NormalTypography } from '@/lib/Typography';
 import { LocaleEnum } from '@/utils/enums/enums';
+import { getUserById } from '@/utils/resolvers/server-side/users';
 import { updateUserPreferences } from '@/utils/resolvers/users';
 import theme from '@/utils/theme';
 import { ExerciseLoadUnitEnum } from '@/utils/types/exercise';
+import { User } from '@/utils/types/user';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -17,20 +18,28 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-export const getServerSideProps = async (context: any) => ({
-  props: {
-    ...(await serverSideTranslations(context.locale, ['common', 'nav', 'settings'])),
-  },
-});
+export const getServerSideProps = async (context: any) => {
+  const userCookie = context.req.cookies.user;
+  const user = await getUserById(userCookie);
+  return {
+    props: {
+      user,
+      ...(await serverSideTranslations(context.locale, ['common', 'nav', 'settings'])),
+    },
+  };
+};
+
+interface SettingsPageProps {
+  user: User | null;
+}
 
 enum SettingsPageTabsEnum {
   PREFERENCES = 'Preferences',
   MEMBERSHIP = 'Membership',
 }
 
-const SettingsPage = () => {
+const SettingsPage = ({ user }: SettingsPageProps) => {
   const { t, i18n } = useTranslation('settings');
-  const { user } = useUser();
   const router = useRouter();
 
   const [activeTab, setActiveTab] = useState<SettingsPageTabsEnum>(SettingsPageTabsEnum.PREFERENCES);
@@ -39,7 +48,7 @@ const SettingsPage = () => {
 
   const handleChangeLanguage = async (locale: LocaleEnum) => {
     if (user) {
-      await updateUserPreferences(user.documentId, { language: locale });
+      await updateUserPreferences(user.id, { language: locale });
     }
     Cookies.set('NEXT_LOCALE', locale);
     i18n.changeLanguage(locale);
@@ -49,11 +58,12 @@ const SettingsPage = () => {
   const handleUpdateWeightUnit = async (unit: ExerciseLoadUnitEnum) => {
     setUpdateWeightUnitLoading(true);
     if (user) {
-      await updateUserPreferences(user.documentId, { weightUnit: unit });
+      await updateUserPreferences(user.id, { weightUnit: unit });
     }
 
     setUpdateWeightUnitLoading(false);
     setSelectedUnit(unit);
+    router.replace(router.asPath);
   };
 
   return (
