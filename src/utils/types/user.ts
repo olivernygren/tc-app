@@ -17,7 +17,12 @@ export enum UserRolesEnum {
   USER = 'USER',
 }
 
-interface UserPreferences {
+export interface UserPreferences {
   language: LocaleEnum;
   weightUnit: ExerciseLoadUnitEnum;
+}
+
+export interface UpdateUserPreferencesInput {
+  language?: LocaleEnum;
+  weightUnit?: ExerciseLoadUnitEnum;
 }

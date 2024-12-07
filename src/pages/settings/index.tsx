@@ -1,12 +1,16 @@
 import TCHead from '@/components/head/TCHead';
 import PageLayout from '@/components/layout/PageLayout';
+import { useUser } from '@/context/UserProvider';
 import Select from '@/lib/inputs/Select';
+import Spinner from '@/lib/loading/Spinner';
 import TabBar from '@/lib/tabs/TabBar';
 import TabBarButton from '@/lib/tabs/TabBarButton';
 import { EmphasisTypography, HeadingsTypography, NormalTypography } from '@/lib/Typography';
 import { LocaleEnum } from '@/utils/enums/enums';
+import { updateUserPreferences } from '@/utils/resolvers/users';
 import theme from '@/utils/theme';
 import { ExerciseLoadUnitEnum } from '@/utils/types/exercise';
+import Cookies from 'js-cookie';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
@@ -26,14 +30,30 @@ enum SettingsPageTabsEnum {
 
 const SettingsPage = () => {
   const { t, i18n } = useTranslation('settings');
+  const { user } = useUser();
   const router = useRouter();
 
   const [activeTab, setActiveTab] = useState<SettingsPageTabsEnum>(SettingsPageTabsEnum.PREFERENCES);
-  const [selectedUnit, setSelectedUnit] = useState(ExerciseLoadUnitEnum.KG);
+  const [selectedUnit, setSelectedUnit] = useState(user?.preferences.weightUnit ?? ExerciseLoadUnitEnum.KG);
+  const [updateWeightUnitLoading, setUpdateWeightUnitLoading] = useState<boolean>(false);
 
-  const handleChangeLanguage = (locale: LocaleEnum) => {
+  const handleChangeLanguage = async (locale: LocaleEnum) => {
+    if (user) {
+      await updateUserPreferences(user.documentId, { language: locale });
+    }
+    Cookies.set('NEXT_LOCALE', locale);
     i18n.changeLanguage(locale);
     router.replace(router.pathname, router.asPath, { locale });
+  };
+
+  const handleUpdateWeightUnit = async (unit: ExerciseLoadUnitEnum) => {
+    setUpdateWeightUnitLoading(true);
+    if (user) {
+      await updateUserPreferences(user.documentId, { weightUnit: unit });
+    }
+
+    setUpdateWeightUnitLoading(false);
+    setSelectedUnit(unit);
   };
 
   return (
@@ -86,7 +106,7 @@ const SettingsPage = () => {
             <WeightUnitButtonsWrapper>
               <WeightUnitButton
                 isSelected={selectedUnit === ExerciseLoadUnitEnum.KG}
-                onClick={() => setSelectedUnit(ExerciseLoadUnitEnum.KG)}
+                onClick={() => handleUpdateWeightUnit(ExerciseLoadUnitEnum.KG)}
               >
                 <EmphasisTypography
                   variant="s"
@@ -97,7 +117,7 @@ const SettingsPage = () => {
               </WeightUnitButton>
               <WeightUnitButton
                 isSelected={selectedUnit === ExerciseLoadUnitEnum.LBS}
-                onClick={() => setSelectedUnit(ExerciseLoadUnitEnum.LBS)}
+                onClick={() => handleUpdateWeightUnit(ExerciseLoadUnitEnum.LBS)}
               >
                 <EmphasisTypography
                   variant="s"
@@ -106,6 +126,9 @@ const SettingsPage = () => {
                   {t('lbs')}
                 </EmphasisTypography>
               </WeightUnitButton>
+              {updateWeightUnitLoading && (
+                <Spinner size="s" />
+              )}
             </WeightUnitButtonsWrapper>
           </PreferenceWrapper>
         </Content>
