@@ -12,13 +12,13 @@ import {
   getBackgroundColor,
   getBorderColor,
   getButtonHeight,
-  getButtonIconColor,
   getButtonPadding,
   getButtonTextColor,
   setSvgColor,
 } from '@/utils/styles/styleHelpers';
 import { MinusIcon } from '@heroicons/react/24/outline';
 import { ButtonTypography } from '../Typography';
+import Spinner from '../loading/Spinner';
 
 export interface ButtonProps {
   variant?: ButtonVariantType;
@@ -72,18 +72,7 @@ const Button = ({
       onMouseUp={() => setButtonState('hover')}
     >
       {loading ? (
-        <RotationalSpinner>
-          <MinusIcon
-            width={24}
-            height={24}
-            fill={getButtonIconColor(
-              variant,
-              color,
-              disabled,
-              buttonState === 'regular' ? undefined : buttonState,
-            )}
-          />
-        </RotationalSpinner>
+        <Spinner size="s" />
       ) : (
         startIcon
       )}
@@ -115,7 +104,7 @@ const StyledButton = styled.button<ButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: ${({ size }) => (size === 's' ? '6px' : theme.spacing.xxs)};
+  gap: ${theme.spacing.xxs};
   transition: all 0.2s ease;
 
   ${({
@@ -129,8 +118,6 @@ const StyledButton = styled.button<ButtonProps>`
     : css`
       border: none;
     `)}
-
-  ${({ variant, color, disabled }) => setSvgColor(getButtonIconColor(variant, color, disabled))};
 
   &:hover {
     /* transform: ${({ disabled }) => (disabled ? 'none' : 'scale(1.02)')}; */

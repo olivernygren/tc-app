@@ -1,0 +1,37 @@
+{
+  "login": "Log in",
+  "email": "Email",
+  "password": "Password",
+  "name": "Name",
+  "username": "Username",
+  "gender": "Gender",
+  "genders": {
+    "MALE": "Male",
+    "FEMALE": "Female"
+  },
+  "sign-in-with-google": "Sign in with Google",
+  "create-account-with-google": "Create account with Google",
+  "create-account": "Create account",
+  "forgot-password": "Forgot password?",
+  "no-account": "Don't have an account?",
+  "already-have-account": "Already have an account?",
+  "login-here": "Log in here",
+  "register-here": "Register here",
+  "or": "or",
+  "password-confirmation": "Confirm password",
+  "password-length-error": "Password must be at least 6 characters long",
+  "password-match-error": "Passwords do not match",
+  "password-format-error": "Password must contain at least one uppercase letter, one lowercase letter and one number",
+  "invalid-email": "Invalid email",
+  "next": "Next step",
+  "back": "Back",
+  "errors": {
+    "auth/invalid-credential": "Invalid credentials",
+    "auth/invalid-password": "Wrong password",
+    "auth/user-not-found": "User not found",
+    "auth/too-many-requests": "Too many attempts, try again later",
+    "auth/invalid-display-name": "Invalid name",
+    "auth/password-does-not-meet-requirements": "Password does not meet requirements",
+    "unknown": "An error occurred"
+  }
+}

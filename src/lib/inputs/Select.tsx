@@ -72,7 +72,7 @@ const SelectWrapper = styled.div<StyledSelectProps>`
   align-items: center;
   min-width: ${({ maxWidth }) => (maxWidth && maxWidth <= '200px' ? maxWidth : '200px')};
   max-width: ${({ maxWidth }) => maxWidth || 'unset'};
-  min-height: ${({ compact }) => (compact ? '44px' : '50px')};
+  min-height: ${({ compact }) => (compact ? '44px' : '52px')};
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'fit-content')};
   padding-right: ${theme.spacing.xxs};
   position: relative;

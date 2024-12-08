@@ -1,0 +1,13 @@
+{
+  "profile": "Profil",
+  "meta-title": "TC | Profil",
+  "edit": "Redigera",
+  "name": "Namn",
+  "email": "E-post",
+  "gender": "Kön",
+  "genders": {
+    "MALE": "Man",
+    "FEMALE": "Kvinna"
+  },
+  "account-info": "Kontoinformation"
+}

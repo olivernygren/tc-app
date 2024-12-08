@@ -10,6 +10,7 @@ export interface User {
   createdAt: Date;
   coachId?: string;
   preferences: UserPreferences;
+  gender?: GenderEnum;
 }
 
 export enum UserRolesEnum {
@@ -25,4 +26,9 @@ export interface UserPreferences {
 export interface UpdateUserPreferencesInput {
   language?: LocaleEnum;
   weightUnit?: ExerciseLoadUnitEnum;
+}
+
+export enum GenderEnum {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE'
 }

@@ -69,7 +69,7 @@ const headingFontWeight = 700;
 const normalFontWeight = 400;
 const emphasisFontWeight = 600;
 const buttonFontWeight = 500;
-const labelFontWeight = 500;
+const labelFontWeight = 600;
 
 const getHeadingVariantStyling = (
   variant: HeadingsTypographyVariantType,
@@ -331,4 +331,5 @@ export const LabelTypography = styled(
   as: as ?? 'span',
 }))<LabelTypographyProps>`
   ${({ variant }) => getLabelVariantStyling(variant)}
+  letter-spacing: 2px;
 `;

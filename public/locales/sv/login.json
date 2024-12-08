@@ -1,0 +1,37 @@
+{
+  "login": "Logga in",
+  "email": "E-post",
+  "password": "Lösenord",
+  "name": "Namn",
+  "username": "Användarnamn",
+  "gender": "Kön",
+  "genders": {
+    "MALE": "Man",
+    "FEMALE": "Kvinna"
+  },
+  "sign-in-with-google": "Logga in med Google",
+  "create-account-with-google": "Skapa konto med Google",
+  "create-account": "Skapa konto",
+  "forgot-password": "Glömt lösenord?",
+  "no-account": "Har du inget konto?",
+  "already-have-account": "Har du redan ett konto?",
+  "login-here": "Logga in här",
+  "register": "Registrera dig här",
+  "or": "eller",
+  "password-confirmation": "Bekräfta lösenord",
+  "password-length-error": "Lösenordet måste vara minst 6 tecken långt",
+  "password-match-error": "Lösenorden matchar inte",
+  "password-format-error": "Lösenordet måste innehålla minst en stor bokstav, en liten bokstav och en siffra",
+  "invalid-email": "Ogiltig e-postadress",
+  "next": "Nästa steg",
+  "back": "Tillbaka",
+  "errors": {
+    "auth/invalid-credential": "Ogiltiga inloggningsuppgifter",
+    "auth/invalid-password": "Fel lösenord",
+    "auth/user-not-found": "Användaren hittades inte",
+    "auth/too-many-requests": "För många försök, försök igen senare",
+    "auth/invalid-display-name": "Ogiltigt namn",
+    "auth/password-does-not-meet-requirements": "Lösenordet uppfyller inte kraven",
+    "unknown": "Ett fel uppstod"
+  }
+}

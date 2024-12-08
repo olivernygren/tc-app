@@ -43,7 +43,7 @@ export const getBackgroundColor = (
     }
     switch (color) {
       case 'gold':
-        return theme.colors.charcoal;
+        return theme.colors.goldDark;
       case 'charcoal':
         return theme.colors.silver;
       default:
@@ -189,44 +189,44 @@ export const getButtonPadding = (size: ButtonSizeType | undefined) => {
   }
 };
 
-export const getButtonIconColor = (
-  variant: ButtonVariantType | undefined,
-  color: ButtonColorType | undefined,
-  disabled?: boolean,
-  state?: 'hover' | 'active',
-) => {
-  if (disabled) {
-    if (variant === 'secondary') {
-      return theme.colors.silver;
-    }
-    switch (color) {
-      case 'gold':
-        return theme.colors.charcoal;
-      case 'charcoal':
-        return theme.colors.silver;
-      default:
-        return theme.colors.charcoal;
-    }
-  }
-  if (variant === 'secondary') {
-    switch (color) {
-      case 'gold':
-        return theme.colors.gold;
-      case 'charcoal':
-        return theme.colors.white;
-      default:
-        return theme.colors.white;
-    }
-  }
-  switch (color) {
-    case 'gold':
-      return theme.colors.charcoal;
-    case 'charcoal':
-      return theme.colors.white;
-    default:
-      return theme.colors.charcoal;
-  }
-};
+// export const getButtonIconColor = (
+//   variant: ButtonVariantType | undefined,
+//   color: ButtonColorType | undefined,
+//   disabled?: boolean,
+//   state?: 'hover' | 'active',
+// ) => {
+//   if (disabled) {
+//     if (variant === 'secondary') {
+//       return theme.colors.silver;
+//     }
+//     switch (color) {
+//       case 'gold':
+//         return theme.colors.charcoal;
+//       case 'charcoal':
+//         return theme.colors.silver;
+//       default:
+//         return theme.colors.charcoal;
+//     }
+//   }
+//   if (variant === 'secondary') {
+//     switch (color) {
+//       case 'gold':
+//         return theme.colors.gold;
+//       case 'charcoal':
+//         return theme.colors.white;
+//       default:
+//         return theme.colors.white;
+//     }
+//   }
+//   switch (color) {
+//     case 'gold':
+//       return theme.colors.charcoal;
+//     case 'charcoal':
+//       return theme.colors.white;
+//     default:
+//       return theme.colors.charcoal;
+//   }
+// };
 
 export const getButtonTextColor = (
   variant: ButtonVariantType | undefined,

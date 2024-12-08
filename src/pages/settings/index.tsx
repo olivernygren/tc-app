@@ -43,7 +43,7 @@ const SettingsPage = ({ user }: SettingsPageProps) => {
   const router = useRouter();
 
   const [activeTab, setActiveTab] = useState<SettingsPageTabsEnum>(SettingsPageTabsEnum.PREFERENCES);
-  const [selectedUnit, setSelectedUnit] = useState(user?.preferences.weightUnit ?? ExerciseLoadUnitEnum.KG);
+  const [selectedUnit, setSelectedUnit] = useState(user?.preferences?.weightUnit ?? ExerciseLoadUnitEnum.KG);
   const [updateWeightUnitLoading, setUpdateWeightUnitLoading] = useState<boolean>(false);
 
   const handleChangeLanguage = async (locale: LocaleEnum) => {

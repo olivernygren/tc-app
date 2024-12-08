@@ -5,7 +5,7 @@ import { HeadingsTypography } from '@/lib/Typography';
 import { useTranslation } from 'next-i18next';
 import {
   ClipboardDocumentListIcon, Cog6ToothIcon, FolderOpenIcon, Squares2X2Icon,
-  UserIcon
+  UserIcon, LockClosedIcon
 } from '@heroicons/react/24/outline';
 import {
   Squares2X2Icon as Solid2X2IconSolid,
@@ -13,12 +13,18 @@ import {
   FolderOpenIcon as FolderOpenIconSolid,
   ArrowTrendingUpIcon,
   Cog6ToothIcon as Cog6ToothIconSolid,
-  UserIcon as UserIconSolid
+  UserIcon as UserIconSolid,
+  LockOpenIcon
 } from '@heroicons/react/24/solid';
 import { useRouter } from 'next/router';
 import { RoutesEnum } from '@/utils/enums/enums';
 import { useUser } from '@/context/UserProvider';
-import AuthComponent from '../auth/AuthComponent';
+import { Divider } from '@/lib/divider/Divider';
+import Button from '@/lib/buttons/Button';
+import { auth } from '@/utils/firebase/firebaseClient';
+import { TokenEnum } from '@/utils/cookies';
+import Cookies from 'js-cookie';
+import { signOut } from 'firebase/auth';
 import SidebarNavButton from './SidebarNavButton';
 
 const Sidebar = () => {
@@ -124,6 +130,23 @@ const Sidebar = () => {
             color={iconColor}
           />
         );
+      case RoutesEnum.ADMIN:
+        if (isActive) {
+          return (
+            <LockOpenIcon
+              width={24}
+              height={24}
+              color={iconColor}
+            />
+          );
+        }
+        return (
+          <LockClosedIcon
+            width={24}
+            height={24}
+            color={iconColor}
+          />
+        );
       default:
         return null;
     }
@@ -178,6 +201,18 @@ const Sidebar = () => {
     }] : []),
   ];
 
+  // Sign out
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      Cookies.remove(TokenEnum.ID_TOKEN);
+      Cookies.remove(TokenEnum.REFRESH_TOKEN);
+      Cookies.remove('user');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
   return (
     <Container>
       <HeadingsTypography variant="h1">TC</HeadingsTypography>
@@ -193,6 +228,7 @@ const Sidebar = () => {
         ))}
       </Links>
       <BottomLinks>
+        <Divider color={theme.colors.charcoalSofter} />
         {bottomLinks.map((link) => (
           <SidebarNavButton
             key={link.href}
@@ -203,7 +239,14 @@ const Sidebar = () => {
           />
         ))}
       </BottomLinks>
-      <AuthComponent />
+      <Button
+        onClick={handleSignOut}
+        variant="secondary"
+        color="charcoal"
+        fullWidth
+      >
+        Sign Out
+      </Button>
     </Container>
   );
 };

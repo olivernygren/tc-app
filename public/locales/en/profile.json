@@ -1,0 +1,13 @@
+{
+  "profile": "Profile",
+  "meta-title": "TC | Profile",
+  "edit": "Edit",
+  "name": "Name",
+  "email": "Email",
+  "gender": "Gender",
+  "genders": {
+    "MALE": "Male",
+    "FEMALE": "Female"
+  },
+  "account-info": "Account Information"
+}

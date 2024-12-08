@@ -1,4 +1,4 @@
-import { fetchSignInMethodsForEmail, signInWithPopup, UserCredential } from 'firebase/auth';
+import { signInWithPopup, UserCredential } from 'firebase/auth';
 import { getDoc, doc } from 'firebase/firestore';
 import { auth, clientDb, provider } from './firebaseClient';
 import { convertUserToCookie, TokenCookie } from '../cookies';
@@ -16,21 +16,17 @@ export interface AuthResults {
 
 export const signInWithGoogle = async () => {
   try {
-    let isNewUser;
+    let isNewUser: boolean = false;
     let userFromDB: User | undefined;
     const result = await signInWithPopup(auth, provider);
-    const email = result.user.email ?? '';
 
-    // Check if the email is already associated with an existing user
-    const signInMethods = await fetchSignInMethodsForEmail(auth, email);
-    if (signInMethods.length === 0) {
-      isNewUser = true;
-    } else {
+    // Check if the user document exists in Firestore
+    const userDoc = await getDoc(doc(clientDb, FirestoreCollectionEnum.USERS, result.user.uid));
+    if (userDoc.exists()) {
       isNewUser = false;
-      const userDoc = await getDoc(doc(clientDb, FirestoreCollectionEnum.USERS, result.user.uid));
-      if (userDoc.exists()) {
-        userFromDB = withDocumentIdOnSingleObject(userDoc);
-      }
+      userFromDB = withDocumentIdOnSingleObject(userDoc);
+    } else {
+      isNewUser = true;
     }
 
     const cookie = await convertUserToCookie(result.user);
@@ -42,13 +38,13 @@ export const signInWithGoogle = async () => {
       cookie,
       error: undefined,
     } as AuthResults;
-  } catch (error) {
+  } catch (error: any) {
     return {
       existingUser: undefined,
       userCredential: undefined,
       isNewUser: undefined,
       cookie: undefined,
-      error: JSON.stringify(error),
+      error: error.code,
     } as AuthResults;
   }
 };

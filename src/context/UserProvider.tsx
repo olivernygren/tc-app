@@ -21,10 +21,7 @@ export const useUser = () => useContext(UserContext);
 
 export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [hasAdminRights, setHasAdminRights] = useState<boolean>(() =>
-    // const storedUser = Cookies.get('user');
-    // return storedUser ? JSON.parse(storedUser).role === 'ADMIN' : false;
-    true);
+  const [hasAdminRights, setHasAdminRights] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   const contextValue = useMemo(() => ({ user, hasAdminRights }), [user, hasAdminRights]);

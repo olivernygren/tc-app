@@ -6,6 +6,7 @@
     "progress": "Progress",
     "settings": "Settings",
     "profile": "Profile",
-    "logout": "Log out"
+    "logout": "Log out",
+    "admin": "Admin"
   }
 }
