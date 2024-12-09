@@ -15,10 +15,17 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { RoutesEnum } from '@/utils/enums/enums';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
+// const geistSans = localFont({
+//   src: './fonts/GeistVF.woff',
+//   weight: '100 900',
+// });
+
+const kumbhSans = localFont({
+  src: './fonts/KumbhSans-VariableFont_YOPQ,wght.ttf',
   weight: '100 900',
 });
+
+const font = kumbhSans;
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -48,14 +55,14 @@ const App = ({ Component, pageProps }: AppProps) => {
   const getLayout = () => {
     if (router.pathname === RoutesEnum.LOGIN) {
       return (
-        <FullPageRoot className={geistSans.className}>
+        <FullPageRoot className={font.className}>
           <Component {...pageProps} />
         </FullPageRoot>
       );
     }
 
     return (
-      <Root className={geistSans.className}>
+      <Root className={font.className}>
         <Sidebar />
         <Content
           initial={{ y: 20, opacity: 0 }}

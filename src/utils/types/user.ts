@@ -11,11 +11,17 @@ export interface User {
   coachId?: string;
   preferences: UserPreferences;
   gender?: GenderEnum;
+  provider: AuthProviderEnum;
 }
 
 export enum UserRolesEnum {
   ADMIN = 'ADMIN',
   USER = 'USER',
+}
+
+export enum AuthProviderEnum {
+  GOOGLE = 'google',
+  EMAIL = 'email',
 }
 
 export interface UserPreferences {

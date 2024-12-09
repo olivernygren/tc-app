@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import theme from '@/utils/theme';
-import { NormalTypography } from '../Typography';
+import { EmphasisTypography, NormalTypography } from '../Typography';
 
 interface TabBarButtonProps {
   text: string;
@@ -15,9 +15,9 @@ const TabBarButton = ({
 }: TabBarButtonProps) => (
   <StyledTabBarButton onClick={onClick} isActive={isActive}>
     <TabTextContainer>
-      <NormalTypography variant="s" color={isActive ? theme.colors.gold : theme.colors.silver}>
+      <EmphasisTypography variant="s" color={isActive ? theme.colors.gold : theme.colors.silver}>
         {text}
-      </NormalTypography>
+      </EmphasisTypography>
       {endIcon}
     </TabTextContainer>
     {isActive && <ActiveIndicator />}

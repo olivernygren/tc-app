@@ -15,6 +15,16 @@ const Layout = styled.div`
   flex-direction: column;
   gap: ${theme.spacing.xs};
   width: 100%;
+  animation: fadeIn 0.5s ease;
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 export default PageLayout;

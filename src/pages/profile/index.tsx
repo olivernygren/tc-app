@@ -47,40 +47,46 @@ const ProfilePage = ({ user }: ProfilePageProps) => {
     <>
       <TCHead title={t('meta-title')} />
       <PageLayout>
-        <Header>
-          <HeadingsTypography variant="h1">
-            {t('profile')}
-          </HeadingsTypography>
-          <Button
-            variant="secondary"
-            color="charcoal"
-            size="s"
-            endIcon={<PencilIcon width={16} height={16} color={theme.colors.white} />}
-          >
-            {t('edit')}
-          </Button>
-        </Header>
+        <HeadingsTypography variant="h1">
+          {t('profile')}
+        </HeadingsTypography>
         <Divider />
         {user !== null && (
           <Content>
-            <HeadingsTypography variant="h5">
-              {t('account-info')}
-            </HeadingsTypography>
+            <Header>
+              <HeadingsTypography variant="h5">
+                {t('account-info')}
+              </HeadingsTypography>
+              <Button
+                variant="secondary"
+                color="charcoal"
+                size="s"
+                endIcon={<PencilIcon width={16} height={16} color={theme.colors.white} />}
+              >
+                {t('edit')}
+              </Button>
+            </Header>
             <ProfileInfoItems>
               <ProfileInfoItem>
-                <LabelTypography variant="s" color={theme.colors.silver}>{t('name').toUpperCase()}</LabelTypography>
+                <LabelTypography variant="xs" color={theme.colors.silver}>{t('name').toUpperCase()}</LabelTypography>
                 <NormalTypography>{user.name}</NormalTypography>
               </ProfileInfoItem>
             </ProfileInfoItems>
             <ProfileInfoItems>
               <ProfileInfoItem>
-                <LabelTypography variant="s" color={theme.colors.silver}>{t('email').toUpperCase()}</LabelTypography>
+                <LabelTypography variant="xs" color={theme.colors.silver}>{t('username').toUpperCase()}</LabelTypography>
+                <NormalTypography>{user.username}</NormalTypography>
+              </ProfileInfoItem>
+            </ProfileInfoItems>
+            <ProfileInfoItems>
+              <ProfileInfoItem>
+                <LabelTypography variant="xs" color={theme.colors.silver}>{t('email').toUpperCase()}</LabelTypography>
                 <NormalTypography>{user.email}</NormalTypography>
               </ProfileInfoItem>
             </ProfileInfoItems>
             <ProfileInfoItems>
               <ProfileInfoItem>
-                <LabelTypography variant="s" color={theme.colors.silver}>{t('gender').toUpperCase()}</LabelTypography>
+                <LabelTypography variant="xs" color={theme.colors.silver}>{t('gender').toUpperCase()}</LabelTypography>
                 <GenderContainer>
                   <NormalTypography>{t(`genders.${user.gender}`)}</NormalTypography>
                   {getGenderIcon()}
@@ -105,7 +111,6 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.m};
-  padding-top: ${theme.spacing.xs};
 `;
 
 const ProfileInfoItems = styled.div`

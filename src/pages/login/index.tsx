@@ -11,7 +11,9 @@ import { auth, clientDb, provider } from '@/utils/firebase/firebaseClient';
 import { getUserById } from '@/utils/resolvers/server-side/users';
 import theme from '@/utils/theme';
 import { ExerciseLoadUnitEnum } from '@/utils/types/exercise';
-import { GenderEnum, User, UserRolesEnum } from '@/utils/types/user';
+import {
+  AuthProviderEnum, GenderEnum, User, UserRolesEnum
+} from '@/utils/types/user';
 import { ArrowLongLeftIcon, ArrowLongRightIcon } from '@heroicons/react/16/solid';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
@@ -94,13 +96,15 @@ const LoginPage = ({ user }: LoginPageProps) => {
           preferences: {
             weightUnit: ExerciseLoadUnitEnum.KG,
             language: router.locale
-          }
+          },
+          provider: AuthProviderEnum.GOOGLE,
         };
 
         await setDoc(doc(clientDb, FirestoreCollectionEnum.USERS, userCredential.user.uid), input);
       }
 
       setCookie(CookieKey.TOKEN, cookie, undefined);
+      router.push('/');
     }
   };
 
@@ -120,12 +124,14 @@ const LoginPage = ({ user }: LoginPageProps) => {
         preferences: {
           weightUnit: ExerciseLoadUnitEnum.KG,
           language: router.locale
-        }
+        },
+        provider: AuthProviderEnum.GOOGLE,
       };
 
       await setDoc(doc(clientDb, FirestoreCollectionEnum.USERS, result.user.uid), input);
 
       Cookies.set('user', result.user.uid);
+      router.push('/');
     } catch (error: any) {
       setAuthError(t(`errors.${error.code}`));
       console.error('Error creating account:', error);
@@ -148,7 +154,8 @@ const LoginPage = ({ user }: LoginPageProps) => {
         preferences: {
           weightUnit: ExerciseLoadUnitEnum.KG,
           language: router.locale
-        }
+        },
+        provider: AuthProviderEnum.EMAIL,
       };
 
       await setDoc(doc(clientDb, FirestoreCollectionEnum.USERS, result.user.uid), input);

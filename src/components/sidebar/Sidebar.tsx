@@ -1,7 +1,7 @@
 import theme from '@/utils/theme';
 import React from 'react';
 import { styled } from 'styled-components';
-import { HeadingsTypography } from '@/lib/Typography';
+import { HeadingsTypography, NormalTypography } from '@/lib/Typography';
 import { useTranslation } from 'next-i18next';
 import {
   ClipboardDocumentListIcon, Cog6ToothIcon, FolderOpenIcon, Squares2X2Icon,
@@ -29,7 +29,7 @@ import SidebarNavButton from './SidebarNavButton';
 
 const Sidebar = () => {
   const { t } = useTranslation('nav');
-  const { hasAdminRights } = useUser();
+  const { user, hasAdminRights } = useUser();
   const router = useRouter();
 
   const getIcon = (href: string) => {
@@ -193,6 +193,11 @@ const Sidebar = () => {
       text: t('sidebar.profile'),
       href: RoutesEnum.PROFILE,
       icon: getIcon(RoutesEnum.PROFILE),
+      endItem: user !== null ? (
+        <NormalTypography variant="s" color={theme.colors.silver}>
+          {`@${user.username}`}
+        </NormalTypography>
+      ) : undefined
     },
     ...(hasAdminRights ? [{
       text: t('sidebar.admin'),
@@ -236,17 +241,20 @@ const Sidebar = () => {
             icon={link.icon}
             href={link.href}
             isActive={router.pathname === link.href}
+            endItem={link.endItem}
           />
         ))}
       </BottomLinks>
-      <Button
-        onClick={handleSignOut}
-        variant="secondary"
-        color="charcoal"
-        fullWidth
-      >
-        Sign Out
-      </Button>
+      <PaddedContainer>
+        <Button
+          onClick={handleSignOut}
+          variant="secondary"
+          color="charcoal"
+          fullWidth
+        >
+          {t('sidebar.logout')}
+        </Button>
+      </PaddedContainer>
     </Container>
   );
 };
@@ -275,6 +283,11 @@ const BottomLinks = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.xxs};
+`;
+
+const PaddedContainer = styled.div`
+  padding: 0 ${theme.spacing.xxs};
+  width: 100%;
 `;
 
 export default Sidebar;

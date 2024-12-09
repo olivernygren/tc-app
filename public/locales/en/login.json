@@ -16,7 +16,7 @@
   "no-account": "Don't have an account?",
   "already-have-account": "Already have an account?",
   "login-here": "Log in here",
-  "register-here": "Register here",
+  "register": "Register here",
   "or": "or",
   "password-confirmation": "Confirm password",
   "password-length-error": "Password must be at least 6 characters long",

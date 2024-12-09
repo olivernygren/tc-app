@@ -5,6 +5,7 @@
   "name": "Namn",
   "email": "E-post",
   "gender": "Kön",
+  "username": "Användarnamn",
   "genders": {
     "MALE": "Man",
     "FEMALE": "Kvinna"
