@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import theme from '@/utils/theme';
-import { EmphasisTypography, NormalTypography } from '../Typography';
+import { EmphasisTypography, NormalTypography } from '../typography/Typography';
 
 interface TabBarButtonProps {
   text: string;

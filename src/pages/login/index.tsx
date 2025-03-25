@@ -3,7 +3,7 @@ import Button from '@/lib/buttons/Button';
 import { Divider } from '@/lib/divider/Divider';
 import Input from '@/lib/inputs/Input';
 import Select from '@/lib/inputs/Select';
-import { EmphasisTypography, HeadingsTypography, NormalTypography } from '@/lib/Typography';
+import { EmphasisTypography, HeadingsTypography, NormalTypography } from '@/lib/typography/Typography';
 import { CookieKey, setCookie } from '@/utils/cookies';
 import { FirestoreCollectionEnum } from '@/utils/enums/enums';
 import { signInWithGoogle } from '@/utils/firebase/authHelpers';

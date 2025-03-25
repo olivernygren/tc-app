@@ -1,7 +1,7 @@
 import theme, { devices } from '@/utils/theme';
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { EmphasisTypography, LabelTypography } from '../Typography';
+import { EmphasisTypography, LabelTypography } from '../typography/Typography';
 
 interface InputProps {
   type?: 'email' | 'password' | 'text' | 'number' | 'tel';

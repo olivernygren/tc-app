@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next';
 import theme, { devices } from '@/utils/theme';
 import { ButtonColorType } from '@/utils/types/elements';
 import Modal, { ModalProps } from './Modal';
-import { NormalTypography } from '../Typography';
+import { NormalTypography } from '../typography/Typography';
 import Button from '../buttons/Button';
 
 interface ActionsModalProps extends ModalProps {

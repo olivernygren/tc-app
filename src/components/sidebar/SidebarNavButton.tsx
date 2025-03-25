@@ -1,4 +1,4 @@
-import { EmphasisTypography } from '@/lib/Typography';
+import { EmphasisTypography } from '@/lib/typography/Typography';
 import theme from '@/utils/theme';
 import Link from 'next/link';
 import React from 'react';
@@ -37,7 +37,7 @@ const StyledNavButton = styled.div<{ isActive: boolean }>`
   height: 52px;
   border-radius: 10px;
   cursor: ${({ isActive }) => (isActive ? 'default' : 'pointer')};
-  transition: all 0.15s ease-in-out;
+  transition: all 0.12s ease-in-out;
   background-color: ${({ isActive }) => (isActive ? theme.colors.charcoalSofter : 'transparent')};
 
   .button-text {
@@ -47,6 +47,11 @@ const StyledNavButton = styled.div<{ isActive: boolean }>`
   &:hover {
     background-color: ${theme.colors.charcoalSofter};
     transform: scale(${({ isActive }) => (isActive ? 1 : 1.02)});
+  }
+
+  &:active {
+    background-color: ${theme.colors.charcoalSofter};
+    transform: scale(${({ isActive }) => (isActive ? 1 : 0.98)});
   }
 `;
 

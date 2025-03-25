@@ -5,7 +5,7 @@ import { getModalBorderRadius, getModalContentPadding, getModalWidth } from '@/u
 import { ModalSizeType } from '@/utils/types/elements';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import IconButton from '../buttons/IconButton';
-import { HeadingsTypography } from '../Typography';
+import { HeadingsTypography } from '../typography/Typography';
 
 export interface ModalProps {
   title?: string;

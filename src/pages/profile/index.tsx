@@ -2,7 +2,7 @@ import TCHead from '@/components/head/TCHead';
 import PageLayout from '@/components/layout/PageLayout';
 import Button from '@/lib/buttons/Button';
 import { Divider } from '@/lib/divider/Divider';
-import { LabelTypography, HeadingsTypography, NormalTypography } from '@/lib/Typography';
+import { LabelTypography, HeadingsTypography, NormalTypography } from '@/lib/typography/Typography';
 import { getUserById } from '@/utils/resolvers/server-side/users';
 import theme from '@/utils/theme';
 import { GenderEnum, User } from '@/utils/types/user';

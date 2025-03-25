@@ -4,7 +4,7 @@ import Select from '@/lib/inputs/Select';
 import Spinner from '@/lib/loading/Spinner';
 import TabBar from '@/lib/tabs/TabBar';
 import TabBarButton from '@/lib/tabs/TabBarButton';
-import { EmphasisTypography, HeadingsTypography, NormalTypography } from '@/lib/Typography';
+import { EmphasisTypography, HeadingsTypography, NormalTypography } from '@/lib/typography/Typography';
 import { LocaleEnum } from '@/utils/enums/enums';
 import { getUserById } from '@/utils/resolvers/server-side/users';
 import { updateUserPreferences } from '@/utils/resolvers/users';

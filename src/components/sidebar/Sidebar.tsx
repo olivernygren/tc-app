@@ -1,7 +1,7 @@
 import theme from '@/utils/theme';
 import React from 'react';
 import { styled } from 'styled-components';
-import { HeadingsTypography, NormalTypography } from '@/lib/Typography';
+import { HeadingsTypography, NormalTypography } from '@/lib/typography/Typography';
 import { useTranslation } from 'next-i18next';
 import {
   ClipboardDocumentListIcon, Cog6ToothIcon, FolderOpenIcon, Squares2X2Icon,
@@ -220,7 +220,10 @@ const Sidebar = () => {
 
   return (
     <Container>
-      <HeadingsTypography variant="h1">TC</HeadingsTypography>
+      <PaddedContainer>
+        <HeadingsTypography variant="h1">TC</HeadingsTypography>
+      </PaddedContainer>
+      <Divider color={theme.colors.charcoalSofter} />
       <Links>
         {topLinks.map((link) => (
           <SidebarNavButton
@@ -232,8 +235,8 @@ const Sidebar = () => {
           />
         ))}
       </Links>
+      <Divider color={theme.colors.charcoalSofter} />
       <BottomLinks>
-        <Divider color={theme.colors.charcoalSofter} />
         {bottomLinks.map((link) => (
           <SidebarNavButton
             key={link.href}
@@ -261,21 +264,23 @@ const Sidebar = () => {
 
 const Container = styled.div`
   background-color: ${theme.colors.charcoalSoft};
-  border-radius: ${theme.borderRadius.xl};
+  /* border-radius: ${theme.borderRadius.xl}; */
   height: 100%;
-  max-height: calc(100dvh - 48px);
-  padding: ${theme.spacing.m} ${theme.spacing.xs};
+  /* max-height: calc(100dvh - 48px); */
+  padding: ${theme.spacing.m} 0;
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.m};
   width: 320px;
-  position: sticky;
+  overflow: hidden;
+  border-right: 1px solid ${theme.colors.charcoalSofter};
 `;
 
 const Links = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.xxs};
+  padding: 0 ${theme.spacing.xs};
   flex: 1;
 `;
 
@@ -283,10 +288,11 @@ const BottomLinks = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.xxs};
+  padding: 0 ${theme.spacing.xs};
 `;
 
 const PaddedContainer = styled.div`
-  padding: 0 ${theme.spacing.xxs};
+  padding: 0 ${theme.spacing.m};
   width: 100%;
 `;
 

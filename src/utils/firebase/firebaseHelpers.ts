@@ -5,7 +5,7 @@ import {
 } from 'firebase/firestore';
 
 export const withDocumentIdOnObjectsInArray = <T>(
-  docs: QueryDocumentSnapshot<DocumentData>[],
+  docs: QueryDocumentSnapshot<DocumentData>[] | FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData, FirebaseFirestore.DocumentData>[],
 ): T[] => docs.map((doc) => ({
     ...(doc.data() as T),
     documentId: doc.id,

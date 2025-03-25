@@ -14,10 +14,8 @@ import {
   getButtonHeight,
   getButtonPadding,
   getButtonTextColor,
-  setSvgColor,
 } from '@/utils/styles/styleHelpers';
-import { MinusIcon } from '@heroicons/react/24/outline';
-import { ButtonTypography } from '../Typography';
+import { ButtonTypography } from '../typography/Typography';
 import Spinner from '../loading/Spinner';
 
 export interface ButtonProps {
@@ -144,16 +142,16 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-const RotationalSpinner = styled.div`
-  animation: spin 1s linear infinite;
-  height: 24px;
-  width: 24px;
+// const RotationalSpinner = styled.div`
+//   animation: spin 1s linear infinite;
+//   height: 24px;
+//   width: 24px;
 
-  @keyframes spin {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-`;
+//   @keyframes spin {
+//     100% {
+//       transform: rotate(360deg);
+//     }
+//   }
+// `;
 
 export default Button;

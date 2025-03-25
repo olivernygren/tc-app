@@ -1,6 +1,6 @@
 import TCHead from '@/components/head/TCHead';
 import Button from '@/lib/buttons/Button';
-import { HeadingsTypography, EmphasisTypography, NormalTypography } from '@/lib/Typography';
+import { HeadingsTypography, EmphasisTypography, NormalTypography } from '@/lib/typography/Typography';
 import { createExercise } from '@/utils/resolvers/exercises';
 import theme from '@/utils/theme';
 import {

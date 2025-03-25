@@ -63,7 +63,9 @@ const App = ({ Component, pageProps }: AppProps) => {
 
     return (
       <Root className={font.className}>
-        <Sidebar />
+        <SidebarContainer>
+          <Sidebar />
+        </SidebarContainer>
         <Content
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -96,10 +98,9 @@ const App = ({ Component, pageProps }: AppProps) => {
 const Root = styled.div`
   display: grid;
   grid-template-columns: 320px 1fr;
-  gap: ${theme.spacing.m};
-  min-height: 100dvh;
+  /* gap: ${theme.spacing.l}; */
+  height: 100dvh;
   background-color: ${theme.colors.charcoal};
-  padding: ${theme.spacing.m};
   overflow: hidden;
 `;
 
@@ -109,7 +110,6 @@ const FullPageRoot = styled.div`
   gap: ${theme.spacing.m};
   min-height: 100dvh;
   background-color: ${theme.colors.charcoal};
-  padding: ${theme.spacing.m};
   overflow: hidden;
 `;
 
@@ -119,6 +119,8 @@ const Content = styled(motion.div)`
   gap: ${theme.spacing.m};
   width: 100%;
   overflow-y: auto;
+  height: 100dvh;
+  /* padding: ${theme.spacing.m} ${theme.spacing.m} ${theme.spacing.m} 0; */
 `;
 
 const LoadingContainer = styled.div`
@@ -129,6 +131,11 @@ const LoadingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const SidebarContainer = styled.div`
+  overflow: hidden; /* Sidebar should not scroll */
+  /* padding: ${theme.spacing.m} ${theme.spacing.m} 0 ${theme.spacing.m}; */
 `;
 
 export default appWithTranslation(App);

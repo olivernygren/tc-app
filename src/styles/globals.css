@@ -4,6 +4,7 @@ body {
   overflow-x: hidden;
   min-height: 100dvh;
   background-color: #222222;
+  color-scheme: dark;
 
   > div {
     min-height: 100dvh;

@@ -1,18 +1,7 @@
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../firebase/firebaseClient';
 import { FirestoreCollectionEnum } from '../enums/enums';
 import { ExerciseInput } from '../types/exercise';
-
-// export const getUsers = async () => {
-//   try {
-//     const usersCollection = collection(db, FirestoreCollectionEnum.USERS);
-//     const workoutSnapshot = await getDocs(usersCollection);
-//     return withDocumentIdOnObjectsInArray(workoutSnapshot.docs);
-//   } catch (error) {
-//     console.error(error);
-//     return null;
-//   }
-// };
+import { clientDb } from '../firebase/firebaseClient';
 
 // eslint-disable-next-line import/prefer-default-export
 export const createExercise = async (
@@ -21,7 +10,7 @@ export const createExercise = async (
 ) => {
   try {
     const exercisesCollection = collection(
-      db,
+      clientDb,
       FirestoreCollectionEnum.EXERCISES,
     );
     await addDoc(exercisesCollection, exercise);

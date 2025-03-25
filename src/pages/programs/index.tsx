@@ -1,4 +1,4 @@
-import { HeadingsTypography } from '@/lib/Typography';
+import { HeadingsTypography } from '@/lib/typography/Typography';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
