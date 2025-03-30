@@ -1,53 +1,41 @@
-import IconButton from '@/lib/buttons/IconButton';
-import { EmphasisTypography, NormalTypography } from '@/lib/typography/Typography';
-import theme from '@/utils/theme';
 import { Exercise } from '@/utils/types/exercise';
-import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import React from 'react';
-import styled from 'styled-components';
+import {
+  Box, IconButton, Stack, Text
+} from '@chakra-ui/react';
+import { EllipsisVertical } from 'lucide-react';
 
 interface Props {
   exercise: Exercise;
 }
 
 const ExerciseManagementCard = ({ exercise }: Props) => (
-  <Card>
-    <Content>
-      <NormalTypography variant="s" color={theme.colors.silver}>
+  <Box
+    display="flex"
+    alignItems="center"
+    justifyContent="space-between"
+    p={3}
+    bg="bg.subtle"
+    rounded="lg"
+    borderWidth={1}
+    borderColor="border.muted"
+  >
+    <Stack gap={1}>
+      <Text color="fg.subtle" textStyle="sm">
         {exercise.primaryMuscleGroup}
-      </NormalTypography>
-      <EmphasisTypography variant="m">
+      </Text>
+      <Text textStyle="md" fontWeight={500} color="fg.default">
         {exercise.name}
-      </EmphasisTypography>
-    </Content>
-    <IconButton
-      onClick={() => {}}
-      shape="round"
-      backgroundColors={{
-        hover: theme.colors.charcoalSofter,
-        active: theme.colors.charcoalBleach,
-      }}
-    >
-      <EllipsisVerticalIcon width={24} height={24} />
+      </Text>
+    </Stack>
+    <IconButton variant="ghost" rounded="full" size="md" aria-label="Options">
+      <EllipsisVertical
+        strokeWidth={1.5}
+        size={24}
+        color="white"
+      />
     </IconButton>
-  </Card>
+  </Box>
 );
-
-const Card = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: ${theme.spacing.m};
-  padding: ${theme.spacing.s} ${theme.spacing.s} ${theme.spacing.s} ${theme.spacing.s};
-  border-radius: ${theme.borderRadius.l};
-  background-color: ${theme.colors.charcoalSoft};
-  border: 1px solid ${theme.colors.charcoalSofter};
-`;
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.xxs};
-`;
 
 export default ExerciseManagementCard;

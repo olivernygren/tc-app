@@ -323,6 +323,6 @@ export const getModalBorderRadius = (
   if (mobileFullScreen) return 0;
 
   return mobileBottomSheet
-    ? `${theme.borderRadius.l} ${theme.borderRadius.l} 0 0`
-    : theme.borderRadius.l;
+    ? `${theme.borderRadius.xl} ${theme.borderRadius.xl} 0 0`
+    : theme.borderRadius.xl;
 };

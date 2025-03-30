@@ -1,3 +1,7 @@
 {
-  "test": "This is a test"
+  "test": "This is a test",
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit"
 }

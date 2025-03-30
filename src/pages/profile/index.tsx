@@ -1,17 +1,15 @@
 import TCHead from '@/components/head/TCHead';
 import PageLayout from '@/components/layout/PageLayout';
 import Button from '@/lib/buttons/Button';
-import { Divider } from '@/lib/divider/Divider';
-import { LabelTypography, HeadingsTypography, NormalTypography } from '@/lib/typography/Typography';
 import { getUserById } from '@/utils/resolvers/server-side/users';
-import theme from '@/utils/theme';
 import { GenderEnum, User } from '@/utils/types/user';
-import { PencilIcon } from '@heroicons/react/24/outline';
-import { GenderFemale, GenderMale } from '@phosphor-icons/react';
+import {
+  Flex, Heading, Separator, Stack, Text
+} from '@chakra-ui/react';
+import { Mars, Pencil, Venus } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
-import styled from 'styled-components';
 
 export const getServerSideProps = async (context: any) => {
   const userCookie = context.req.cookies.user;
@@ -35,11 +33,11 @@ const ProfilePage = ({ user }: ProfilePageProps) => {
   const getGenderIcon = () => {
     switch (user?.gender) {
       case GenderEnum.MALE:
-        return <GenderMale size={20} color={theme.colors.white} />;
+        return <Mars size={20} color="white" />;
       case GenderEnum.FEMALE:
-        return <GenderFemale size={20} color={theme.colors.white} />;
+        return <Venus size={20} color="white" />;
       default:
-        return <GenderMale size={20} color={theme.colors.white} />;
+        return <Mars size={20} color="white" />;
     }
   };
 
@@ -47,88 +45,56 @@ const ProfilePage = ({ user }: ProfilePageProps) => {
     <>
       <TCHead title={t('meta-title')} />
       <PageLayout>
-        <HeadingsTypography variant="h1">
+        <Heading textStyle="4xl">
           {t('profile')}
-        </HeadingsTypography>
-        <Divider />
+        </Heading>
+        <Separator />
         {user !== null && (
-          <Content>
-            <Header>
-              <HeadingsTypography variant="h5">
+          <Stack gap={6}>
+            <Flex w="100%" justifyContent="space-between" alignItems="center">
+              <Heading textStyle="2xl">
                 {t('account-info')}
-              </HeadingsTypography>
+              </Heading>
               <Button
-                variant="secondary"
-                color="charcoal"
-                size="s"
-                endIcon={<PencilIcon width={16} height={16} color={theme.colors.white} />}
+                variant="outline"
+                size="sm"
               >
                 {t('edit')}
+                <Pencil strokeWidth={1.5} size={16} color="white" />
               </Button>
-            </Header>
-            <ProfileInfoItems>
-              <ProfileInfoItem>
-                <LabelTypography variant="xs" color={theme.colors.silver}>{t('name').toUpperCase()}</LabelTypography>
-                <NormalTypography>{user.name}</NormalTypography>
-              </ProfileInfoItem>
-            </ProfileInfoItems>
-            <ProfileInfoItems>
-              <ProfileInfoItem>
-                <LabelTypography variant="xs" color={theme.colors.silver}>{t('username').toUpperCase()}</LabelTypography>
-                <NormalTypography>{user.username}</NormalTypography>
-              </ProfileInfoItem>
-            </ProfileInfoItems>
-            <ProfileInfoItems>
-              <ProfileInfoItem>
-                <LabelTypography variant="xs" color={theme.colors.silver}>{t('email').toUpperCase()}</LabelTypography>
-                <NormalTypography>{user.email}</NormalTypography>
-              </ProfileInfoItem>
-            </ProfileInfoItems>
-            <ProfileInfoItems>
-              <ProfileInfoItem>
-                <LabelTypography variant="xs" color={theme.colors.silver}>{t('gender').toUpperCase()}</LabelTypography>
-                <GenderContainer>
-                  <NormalTypography>{t(`genders.${user.gender}`)}</NormalTypography>
+            </Flex>
+            <Stack gap={2}>
+              <Stack gap={1}>
+                <Text textStyle="xs" color="fg.muted">{t('name').toUpperCase()}</Text>
+                <Text>{user.name}</Text>
+              </Stack>
+            </Stack>
+            <Stack gap={2}>
+              <Stack gap={1}>
+                <Text textStyle="xs" color="fg.muted">{t('username').toUpperCase()}</Text>
+                <Text>{user.username}</Text>
+              </Stack>
+            </Stack>
+            <Stack gap={2}>
+              <Stack gap={1}>
+                <Text textStyle="xs" color="fg.muted">{t('email').toUpperCase()}</Text>
+                <Text>{user.email}</Text>
+              </Stack>
+            </Stack>
+            <Stack gap={2}>
+              <Stack gap={1}>
+                <Text textStyle="xs" color="fg.muted">{t('gender').toUpperCase()}</Text>
+                <Flex alignItems="center" gap={2}>
+                  <Text>{t(`genders.${user.gender}`)}</Text>
                   {getGenderIcon()}
-                </GenderContainer>
-              </ProfileInfoItem>
-            </ProfileInfoItems>
-          </Content>
+                </Flex>
+              </Stack>
+            </Stack>
+          </Stack>
         )}
       </PageLayout>
     </>
   );
 };
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-`;
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.m};
-`;
-
-const ProfileInfoItems = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.s};
-`;
-
-const ProfileInfoItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.xxxs};
-`;
-
-const GenderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${theme.spacing.xxs};
-`;
 
 export default ProfilePage;

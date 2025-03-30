@@ -1,17 +1,22 @@
 import ExerciseManagementCard from '@/components/exercise/ExerciseManagementCard';
 import TCHead from '@/components/head/TCHead';
 import PageLayout from '@/components/layout/PageLayout';
-import { HeadingsTypography, NormalTypography } from '@/lib/typography/Typography';
 import { getAllExercises } from '@/utils/resolvers/server-side/exercises';
 import { getUserById } from '@/utils/resolvers/server-side/users';
-import theme from '@/utils/theme';
 import { Exercise } from '@/utils/types/exercise';
 import { User } from '@/utils/types/user';
 import UserUtils from '@/utils/user/userUtils';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import {
+  Container, Flex, Group, Heading, Stack,
+  StackSeparator,
+  Text
+} from '@chakra-ui/react';
+import { Funnel, Plus } from 'lucide-react';
+import Button from '@/lib/buttons/Button';
+import CreateExerciseModal from '@/components/exercise/CreateExerciseModal';
 
 interface Props {
   user: User;
@@ -34,7 +39,8 @@ export const getServerSideProps = async (context: any) => {
 const ExercisesPage = ({ exercises, user }: Props) => {
   const { t } = useTranslation('exercises');
 
-  const [exercisesList, setExercisesList] = useState(exercises);
+  const [exercisesList] = useState<Exercise[]>(exercises);
+  const [showCreateExerciseModal, setShowCreateExerciseModal] = useState<boolean>(false);
 
   const isAdmin = UserUtils.isAdminUser(user);
 
@@ -43,53 +49,43 @@ const ExercisesPage = ({ exercises, user }: Props) => {
   return (
     <>
       <TCHead title="TC | Exercises" />
-      <PageLayout noPadding>
-        <Content>
-          <Toolbar>
-            <HeadingsTypography variant="h2" as="h1">
-              {t('exercises')}
-            </HeadingsTypography>
-          </Toolbar>
-          {exercisesList.length > 0 ? (
-            <ExerciseList>
-              {exercisesList.map((exercise) => (
-                <ExerciseManagementCard key={exercise.documentId} exercise={exercise} />
-              ))}
-            </ExerciseList>
-          ) : (
-            <NormalTypography>{t('no-exercises')}</NormalTypography>
-          )}
-        </Content>
+      <PageLayout>
+        <Container maxW="3xl">
+          <Stack gap={6} separator={<StackSeparator />}>
+            <Flex alignItems="center" justifyContent="space-between">
+              <Heading textStyle="4xl">
+                {t('exercises')}
+              </Heading>
+              <Group gap={3}>
+                <Button variant="outline" gap={2}>
+                  <Funnel strokeWidth={1.5} size={24} />
+                  Filtrera
+                </Button>
+                <Button variant="solid" gap={2} onClick={() => setShowCreateExerciseModal(true)}>
+                  <Plus strokeWidth={1.5} size={24} />
+                  {t('create-exercise')}
+                </Button>
+              </Group>
+            </Flex>
+            {exercisesList.length > 0 ? (
+              <Stack gap={3}>
+                {exercisesList.map((exercise) => (
+                  <ExerciseManagementCard key={exercise.documentId} exercise={exercise} />
+                ))}
+              </Stack>
+            ) : (
+              <Text>{t('no-exercises')}</Text>
+            )}
+          </Stack>
+        </Container>
       </PageLayout>
+      <CreateExerciseModal
+        isOpen={showCreateExerciseModal}
+        onClose={() => setShowCreateExerciseModal(false)}
+        exercises={exercisesList}
+      />
     </>
   );
 };
-
-const Content = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr;
-  gap: ${theme.spacing.xs};
-  width: 600px;
-  margin: 0 auto;
-  padding-top: ${theme.spacing.s};
-`;
-
-const Toolbar = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: ${theme.spacing.s} 0;
-  /* background-color: ${theme.colors.charcoalDark}; */
-  border-bottom: 1px solid ${theme.colors.charcoalSofter};
-  z-index: 1;
-`;
-
-const ExerciseList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.xs};
-  overflow-y: auto;
-  padding-top: ${theme.spacing.xs};
-`;
 
 export default ExercisesPage;

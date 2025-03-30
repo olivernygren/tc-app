@@ -1,3 +1,33 @@
 {
-  "exercises": "Exercises"
+  "exercises": "Exercises",
+  "create-exercise": "Create exercise",
+  "create-exercise-description": "Give the exercise a name, select a primary muscle group and exercise equipment. You enter more advanced information below ",
+  "CREATE_EXERCISE_FORM": {
+    "exerciseName": {
+      "label": "Exercise name",
+      "placeholder": "e.g. Seated Cable Row",
+      "errors": {
+        "required": "Please enter an exercise name",
+        "min-length": "Minimum 2 characters",
+        "max-length": "Maximum 50 characters",
+        "pattern": "Only letters, numbers and spaces are allowed",
+        "unique": "An exercise with this name already exists"
+      }
+    },
+    "primaryMuscleGroup": {
+      "label": "Primary muscle group",
+      "placeholder": "e.g. Back",
+      "errors": {
+        "required": "Please select a primary muscle group"
+      }
+    },
+    "equipment": {
+      "label": "Equipment",
+      "placeholder": "e.g. Cable machine",
+      "errors": {
+        "required": "Please select equipment"
+      }
+    }
+  },
+  "advanced-info": "Advanced information"
 }

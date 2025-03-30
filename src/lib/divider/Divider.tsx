@@ -1,5 +1,4 @@
-import styled, { css } from 'styled-components';
-import theme from '@/utils/theme';
+import React from 'react';
 
 interface DividerProps {
   color?: string;
@@ -7,15 +6,11 @@ interface DividerProps {
   customHeight?: string;
 }
 
-// eslint-disable-next-line import/prefer-default-export
-export const Divider = styled.div<DividerProps>`
-  ${({ vertical, customHeight }) => (vertical ? css`
-    width: 1px;
-    height: ${customHeight || '100%'};
-    min-height: 28px;
-  ` : css`
-    width: 100%;
-    height: 1px;
-  `)}
-  background-color: ${({ color }) => color || theme.colors.charcoalSoft};
-`;
+export const Divider = ({ color = '#2c2c2c', vertical = false, customHeight }: DividerProps) => (
+  <div
+    className={`bg-[${color}] ${vertical ? 'w-[1px]' : 'w-full'} ${
+      vertical ? customHeight || 'h-full min-h-[28px]' : 'h-[1px]'
+    }`}
+    style={{ backgroundColor: color, height: vertical ? customHeight : undefined }}
+  />
+);

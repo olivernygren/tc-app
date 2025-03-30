@@ -1,34 +1,30 @@
 import TCHead from '@/components/head/TCHead';
+import { PasswordInput } from '@/components/ui/password-input';
 import Button from '@/lib/buttons/Button';
-import { Divider } from '@/lib/divider/Divider';
-import Input from '@/lib/inputs/Input';
-import Select from '@/lib/inputs/Select';
-import { EmphasisTypography, HeadingsTypography, NormalTypography } from '@/lib/typography/Typography';
 import { CookieKey, setCookie } from '@/utils/cookies';
 import { FirestoreCollectionEnum } from '@/utils/enums/enums';
 import { signInWithGoogle } from '@/utils/firebase/authHelpers';
 import { auth, clientDb, provider } from '@/utils/firebase/firebaseClient';
 import { getUserById } from '@/utils/resolvers/server-side/users';
-import theme from '@/utils/theme';
 import { ExerciseLoadUnitEnum } from '@/utils/types/exercise';
 import {
-  AuthProviderEnum, GenderEnum, User, UserRolesEnum
+  AuthProviderEnum, GenderEnum, UserRolesEnum
 } from '@/utils/types/user';
-import { ArrowLongLeftIcon, ArrowLongRightIcon } from '@heroicons/react/16/solid';
+import {
+  Card, Center, Field, Fieldset, Flex, Group, Heading, HStack, Input, InputGroup, RadioGroup, Separator, Span, Stack, Text
+} from '@chakra-ui/react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 import Cookies from 'js-cookie';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import styled from 'styled-components';
 
 export const getServerSideProps = async (context: any) => {
   const userCookie = context.req.cookies.user;
-  console.log('userCookie', userCookie);
-
   const user = await getUserById(userCookie);
 
   if (user !== null) {
@@ -42,17 +38,12 @@ export const getServerSideProps = async (context: any) => {
 
   return {
     props: {
-      user,
       ...(await serverSideTranslations(context.locale, ['common', 'nav', 'login'])),
     }
   };
 };
 
-interface LoginPageProps {
-  user: User | null;
-}
-
-const LoginPage = ({ user }: LoginPageProps) => {
+const LoginPage = () => {
   const { t } = useTranslation('login');
   const router = useRouter();
 
@@ -68,7 +59,10 @@ const LoginPage = ({ user }: LoginPageProps) => {
   const [createAccountLoading, setCreateAccountLoading] = useState<boolean>(false);
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
 
-  console.log('user', user);
+  const genderOptions = [
+    { value: GenderEnum.MALE, label: t(`genders.${GenderEnum.MALE}`) },
+    { value: GenderEnum.FEMALE, label: t(`genders.${GenderEnum.FEMALE}`) },
+  ];
 
   const getGoogleIcon = () => (
     <Image src="/images/Google.svg" height={24} width={24} alt="Google" />
@@ -175,8 +169,6 @@ const LoginPage = ({ user }: LoginPageProps) => {
 
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
-      console.log('result', result);
-
       Cookies.set('user', result.user.uid);
       router.push('/');
     } catch (error: any) {
@@ -193,46 +185,38 @@ const LoginPage = ({ user }: LoginPageProps) => {
       if (accountCreationStep === 1) {
         return (
           <Button
-            variant="primary"
-            color="gold"
-            fullWidth
+            variant="solid"
             onClick={() => setAccountCreationStep(2)}
-            endIcon={<ArrowLongRightIcon width={20} height={20} color={theme.colors.charcoal} />}
           >
             {t('next')}
+            <ArrowRight size={20} strokeWidth={1.5} color="gray.300" />
           </Button>
         );
       }
 
       return (
-        <ButtonsContainer>
+        <Group gap={3}>
           <Button
-            variant="secondary"
-            color="charcoal"
+            variant="outline"
             onClick={() => setAccountCreationStep(1)}
-            fullWidth
-            startIcon={<ArrowLongLeftIcon width={20} height={20} color={theme.colors.white} />}
           >
+            <ArrowLeft size={20} strokeWidth={1.5} color="gray.300" />
             {t('back')}
           </Button>
           <Button
-            variant="primary"
-            color="gold"
-            fullWidth
+            variant="solid"
             onClick={handleCreateAccountWithEmail}
             loading={createAccountLoading}
           >
             {t('create-account')}
           </Button>
-        </ButtonsContainer>
+        </Group>
       );
     }
 
     return (
       <Button
-        variant="primary"
-        color="gold"
-        fullWidth
+        variant="solid"
         onClick={handleLoginWithEmail}
         loading={loginLoading}
       >
@@ -244,155 +228,127 @@ const LoginPage = ({ user }: LoginPageProps) => {
   return (
     <>
       <TCHead title={t('login')} />
-      <Layout>
-        <Card>
-          <HeadingsTypography variant="h2">{showRegisterView ? t('create-account') : t('login')}</HeadingsTypography>
-          <InputContainer>
-            {(!showRegisterView || (showRegisterView && accountCreationStep === 1)) && (
-              <>
-                <Input
-                  label={t('email')}
-                  placeholder={t('email')}
-                  value={email}
-                  onChange={(e) => setEmail(e.currentTarget.value)}
-                  fullWidth
-                />
-                <Input
-                  label={t('password')}
-                  placeholder={t('password')}
-                  value={password}
-                  onChange={(e) => setPassword(e.currentTarget.value)}
-                  type="password"
-                  fullWidth
-                />
-              </>
+      <Stack bg="bg" h="100dvh" w="100%" justifyContent="center" alignItems="center" gap={6}>
+        <Card.Root bg="bg.subtle" rounded="2xl" p={8} w={{ base: '90%', md: '500px' }}>
+          <Stack gap={4}>
+            <Heading textStyle="4xl">{showRegisterView ? t('create-account') : t('login')}</Heading>
+            <Fieldset.Root>
+              <Fieldset.Content>
+                {(!showRegisterView || (showRegisterView && accountCreationStep === 1)) && (
+                <>
+                  <Field.Root>
+                    <Field.Label>{t('email')}</Field.Label>
+                    <Input
+                      placeholder={t('email')}
+                      value={email}
+                      onChange={(e) => setEmail(e.currentTarget.value)}
+                    />
+                  </Field.Root>
+                  <Field.Root>
+                    <Field.Label>{t('password')}</Field.Label>
+                    <PasswordInput
+                      placeholder={t('password')}
+                      value={password}
+                      onChange={(e) => setPassword(e.currentTarget.value)}
+                      minLength={6}
+                    />
+                  </Field.Root>
+                </>
+                )}
+                {showRegisterView && accountCreationStep === 2 && (
+                <>
+                  <Field.Root>
+                    <Field.Label>{t('name')}</Field.Label>
+                    <Input
+                      placeholder={t('name')}
+                      value={name}
+                      onChange={(e) => setName(e.currentTarget.value)}
+                      maxLength={50}
+                    />
+                  </Field.Root>
+                  <Field.Root>
+                    <Field.Label>{t('username')}</Field.Label>
+                    <Input
+                      placeholder={t('username')}
+                      value={username}
+                      onChange={(e) => setUsername(e.currentTarget.value)}
+                      maxLength={30}
+                    />
+                    <InputGroup
+                      endElement={(
+                        <Span color="fg.muted" textStyle="xs">
+                          {username.length}
+                          {' '}
+                          / 30
+                        </Span>
+                    )}
+                    >
+                      <Input
+                        placeholder={t('username')}
+                        value={username}
+                        onChange={(e) => setUsername(e.currentTarget.value)}
+                        maxLength={30}
+                      />
+                    </InputGroup>
+                  </Field.Root>
+                  <Field.Root>
+                    <Field.Label>{t('gender')}</Field.Label>
+                    <RadioGroup.Root value={gender} onValueChange={(e) => setGender(e.value as GenderEnum)}>
+                      <HStack gap="6">
+                        {genderOptions.map((item) => (
+                          <RadioGroup.Item key={item.value} value={item.value}>
+                            <RadioGroup.ItemHiddenInput />
+                            <RadioGroup.ItemIndicator />
+                            <RadioGroup.ItemText>{item.label}</RadioGroup.ItemText>
+                          </RadioGroup.Item>
+                        ))}
+                      </HStack>
+                    </RadioGroup.Root>
+                  </Field.Root>
+                </>
+                )}
+              </Fieldset.Content>
+            </Fieldset.Root>
+            {authError && (
+              <Text color="fg.error">
+                {authError}
+              </Text>
             )}
-            {showRegisterView && accountCreationStep === 2 && (
-              <>
-                <Input
-                  label={t('name')}
-                  placeholder={t('name')}
-                  value={name}
-                  onChange={(e) => setName(e.currentTarget.value)}
-                  maxLength={50}
-                  fullWidth
-                />
-                <Input
-                  label={t('username')}
-                  placeholder={t('username')}
-                  value={username}
-                  onChange={(e) => setUsername(e.currentTarget.value)}
-                  maxLength={30}
-                  fullWidth
-                />
-                <Select
-                  value={gender}
-                  onChange={(value) => setGender(value as GenderEnum)}
-                  options={[
-                    { value: GenderEnum.MALE, label: t(`genders.${GenderEnum.MALE}`) },
-                    { value: GenderEnum.FEMALE, label: t(`genders.${GenderEnum.FEMALE}`) },
-                  ]}
-                  fullWidth
-                />
-              </>
+            {getButtons()}
+            <Center display="flex" flexDir="column">
+              <Text textStyle="sm">{t('no-account')}</Text>
+              <ArrowRight size={20} strokeWidth={1.5} color="gray.300" />
+              <Flex onClick={() => setShowRegisterView(!showRegisterView)}>
+                <Text textStyle="sm" color="teal.500">{showRegisterView ? t('login-here') : t('register')}</Text>
+              </Flex>
+            </Center>
+            <HStack>
+              <Separator flex="1" color="fg.subtle" />
+              <Text flexShrink="0" color="fg.muted">{t('or')}</Text>
+              <Separator flex="1" color="fg.subtle" />
+            </HStack>
+            {showRegisterView ? (
+              <Button
+                variant="outline"
+                onClick={handleCreateAccountWithGoogle}
+              >
+                {t('create-account-with-google')}
+                {getGoogleIcon()}
+              </Button>
+            ) : (
+              <Button
+                onClick={handleGoogleSignIn}
+                variant="outline"
+              >
+                {t('sign-in-with-google')}
+                {getGoogleIcon()}
+              </Button>
             )}
-          </InputContainer>
-          {authError && (
-            <NormalTypography color={theme.colors.red}>
-              {authError}
-            </NormalTypography>
-          )}
-          {getButtons()}
-          <NoAccountText>
-            <NormalTypography variant="s">{t('no-account')}</NormalTypography>
-            <ArrowLongRightIcon width={20} height={20} color={theme.colors.silverDark} />
-            <NoAccountLink onClick={() => setShowRegisterView(!showRegisterView)}>
-              <NormalTypography variant="s" color={theme.colors.gold}>{showRegisterView ? t('login-here') : t('register')}</NormalTypography>
-            </NoAccountLink>
-          </NoAccountText>
-          <WordDivider>
-            <Divider color={theme.colors.charcoalSofter} />
-            <EmphasisTypography variant="s" color={theme.colors.silver}>{t('or')}</EmphasisTypography>
-            <Divider color={theme.colors.charcoalSofter} />
-          </WordDivider>
-          {showRegisterView ? (
-            <Button
-              variant="secondary"
-              color="charcoal"
-              onClick={handleCreateAccountWithGoogle}
-              fullWidth
-              endIcon={getGoogleIcon()}
-            >
-              {t('create-account-with-google')}
-            </Button>
-          ) : (
-            <Button
-              onClick={handleGoogleSignIn}
-              fullWidth
-              endIcon={getGoogleIcon()}
-              color="charcoal"
-              variant="secondary"
-            >
-              {t('sign-in-with-google')}
-            </Button>
-          )}
-        </Card>
-      </Layout>
+          </Stack>
+        </Card.Root>
+      </Stack>
     </>
   );
 };
-
-const Layout = styled.div`
-  height: 100dvh;
-  display: flex;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: ${theme.spacing.m}
-`;
-
-const Card = styled.div`
-  background-color: ${theme.colors.charcoalSoft};
-  border-radius: ${theme.borderRadius.xxl};
-  padding: ${theme.spacing.l};
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.m};
-  /* align-items: center; */
-  width: 500px;
-`;
-
-const NoAccountText = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${theme.spacing.xxs};
-  justify-content: center;
-`;
-
-const NoAccountLink = styled.div`
-  cursor: pointer;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.xs};
-  width: 100%;
-`;
-
-const ButtonsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${theme.spacing.s};
-  width: 100%;
-`;
-
-const WordDivider = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${theme.spacing.xs};
-  width: 100%;
-`;
 
 export default LoginPage;

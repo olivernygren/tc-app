@@ -1,6 +1,6 @@
-import { HeadingsTypography } from '@/lib/typography/Typography';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
+import { Heading } from '@chakra-ui/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export const getServerSideProps = async (context: any) => ({
   props: {
@@ -9,9 +9,9 @@ export const getServerSideProps = async (context: any) => ({
 });
 
 const ProgramsPage = () => (
-  <HeadingsTypography variant="h1">
+  <Heading textStyle="4xl">
     Programs
-  </HeadingsTypography>
+  </Heading>
 );
 
 export default ProgramsPage;

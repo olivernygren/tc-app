@@ -1,29 +1,32 @@
 import { useEffect, useState } from 'react';
 import localFont from 'next/font/local';
 import '@/styles/globals.css';
-import theme from '@/utils/theme';
 import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
-import styled from 'styled-components';
-import Sidebar from '@/components/sidebar/Sidebar';
-import StyleSheetProvider from '@/components/styled-components/StyleSheetProvider';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from '@/utils/firebase/firebaseClient';
 import Spinner from '@/lib/loading/Spinner';
 import { UserProvider } from '@/context/UserProvider';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { RoutesEnum } from '@/utils/enums/enums';
+import Sidebar from '@/components/sidebar/Sidebar';
+import {
+  ChakraProvider, defaultSystem, Flex, Grid, Stack, Theme
+} from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+// import { Geist } from 'next/font/google';
+import system from '../../theme';
 
-// const geistSans = localFont({
-//   src: './fonts/GeistVF.woff',
-//   weight: '100 900',
-// });
-
+// Load custom font
 const kumbhSans = localFont({
   src: './fonts/KumbhSans-VariableFont_YOPQ,wght.ttf',
   weight: '100 900',
 });
+
+// const geist = Geist({
+//   subsets: ['latin'],
+//   display: 'swap',
+// });
 
 const font = kumbhSans;
 
@@ -47,26 +50,32 @@ const App = ({ Component, pageProps }: AppProps) => {
   }, [loading, user, router]);
 
   const getLoadingAnimation = () => (
-    <LoadingContainer>
+    <Flex
+      justifyContent="center"
+      alignItems="center"
+      w="100%"
+      h="100%"
+    >
       <Spinner size="l" />
-    </LoadingContainer>
+    </Flex>
   );
 
   const getLayout = () => {
     if (router.pathname === RoutesEnum.LOGIN) {
       return (
-        <FullPageRoot className={font.className}>
+        <Stack gap={4} minH="100dvh" bg="bg" overflow="hidden" overscrollBehavior="none" className={font.className}>
           <Component {...pageProps} />
-        </FullPageRoot>
+        </Stack>
       );
     }
 
     return (
-      <Root className={font.className}>
-        <SidebarContainer>
+      <Grid templateColumns="300px 1fr" h="100dvh" overflow="hidden" className={font.className} bg="bg">
+        <Stack overflow="hidden">
           <Sidebar />
-        </SidebarContainer>
-        <Content
+        </Stack>
+        <motion.div
+          className="flex flex-col gap-4 w-full overflow-y-auto h-screen overscroll-y-none"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -74,68 +83,20 @@ const App = ({ Component, pageProps }: AppProps) => {
         >
           {loading && getLoadingAnimation()}
           {!loading && user && <Component {...pageProps} />}
-          {/* {!loading && !user && (
-            <NormalTypography>
-              Please sign in to access this page.
-            </NormalTypography>
-          )} */}
-        </Content>
-      </Root>
+        </motion.div>
+      </Grid>
     );
   };
 
   return (
-    <UserProvider>
-      <StyleSheetProvider>
-        <AnimatePresence mode="wait">
+    <ChakraProvider value={{ ...system, ...defaultSystem }}>
+      <Theme appearance="dark">
+        <UserProvider>
           {getLayout()}
-        </AnimatePresence>
-      </StyleSheetProvider>
-    </UserProvider>
+        </UserProvider>
+      </Theme>
+    </ChakraProvider>
   );
 };
-
-const Root = styled.div`
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  /* gap: ${theme.spacing.l}; */
-  height: 100dvh;
-  background-color: ${theme.colors.charcoal};
-  overflow: hidden;
-`;
-
-const FullPageRoot = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.m};
-  min-height: 100dvh;
-  background-color: ${theme.colors.charcoal};
-  overflow: hidden;
-`;
-
-const Content = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.m};
-  width: 100%;
-  overflow-y: auto;
-  height: 100dvh;
-  /* padding: ${theme.spacing.m} ${theme.spacing.m} ${theme.spacing.m} 0; */
-`;
-
-const LoadingContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  flex: 1;
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const SidebarContainer = styled.div`
-  overflow: hidden; /* Sidebar should not scroll */
-  /* padding: ${theme.spacing.m} ${theme.spacing.m} 0 ${theme.spacing.m}; */
-`;
 
 export default appWithTranslation(App);

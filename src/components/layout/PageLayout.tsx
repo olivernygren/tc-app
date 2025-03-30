@@ -1,33 +1,22 @@
-import theme from '@/utils/theme';
+import { Stack } from '@chakra-ui/react';
 import React from 'react';
-import styled from 'styled-components';
 
 interface PageLayoutProps {
   children: React.ReactNode;
   noPadding?: boolean;
 }
 
-const PageLayout = ({ children, noPadding }: PageLayoutProps) => (
-  <Layout noPadding={noPadding}>{children}</Layout>
+const PageLayout = ({ children, noPadding = false }: PageLayoutProps) => (
+  <Stack
+    gap={2}
+    w="100%"
+    position="relative"
+    animation="fadeIn 0.5s ease"
+    p={noPadding ? 0 : 6}
+    overscroll="none"
+  >
+    {children}
+  </Stack>
 );
-
-const Layout = styled.div<{ noPadding?: boolean }>`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.xs};
-  width: 100%;
-  animation: fadeIn 0.5s ease;
-  padding: ${(props) => (props.noPadding ? '0' : theme.spacing.m)};
-  position: relative;
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-`;
 
 export default PageLayout;

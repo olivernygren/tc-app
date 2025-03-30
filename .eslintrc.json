@@ -4,7 +4,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "ignorePatterns": ["next.config.mjs", "next-sitemap.config.js"],
+  "ignorePatterns": ["next.config.mjs", "next-sitemap.config.js", "postcss.config.mjs", "tailwind.config.mjs"],
   "parser": "@typescript-eslint/parser",
   "settings": {
     "next": {

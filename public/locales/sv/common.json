@@ -1,3 +1,7 @@
 {
-  "test": "Detta är ett test"
+  "test": "Detta är ett test",
+  "save": "Spara",
+  "cancel": "Avbryt",
+  "delete": "Radera",
+  "edit": "Redigera"
 }
