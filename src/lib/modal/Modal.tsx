@@ -1,27 +1,27 @@
 import React from 'react';
 import {
-  Dialog, CloseButton, Group, Stack, Box
+  Dialog, CloseButton, Group, Stack, Box,
+  DialogRootProps
 } from '@chakra-ui/react';
 import Button from '@/lib/buttons/Button';
 import { useTranslation } from 'next-i18next';
 
-interface ModalProps {
+// @ts-ignore
+interface ModalProps extends DialogRootProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   body: React.ReactNode;
+  children?: React.ReactNode;
   primaryButtonText?: string;
   secondaryButtonText?: string;
-  tertiaryButtonText?: string;
+  tertieryActionItem?: React.ReactNode;
+  tertieryActionItemAlignment?: 'default' | 'with-content';
   onPrimaryButtonClick?: () => void;
   onSecondaryButtonClick?: () => void;
-  onTertiaryButtonClick?: () => void;
-  tertiaryButtonColor?: string;
-  showButtons?: ('primary' | 'secondary' | 'tertiary')[];
   titleTextSize?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl';
   primaryButtonIcon?: React.ReactNode;
   secondaryButtonIcon?: React.ReactNode;
-  tertiaryButtonIcon?: React.ReactNode;
   loading?: boolean;
 }
 
@@ -32,17 +32,15 @@ const Modal = ({
   body,
   primaryButtonText,
   secondaryButtonText,
-  tertiaryButtonText,
+  tertieryActionItem,
+  tertieryActionItemAlignment,
   onPrimaryButtonClick,
   onSecondaryButtonClick,
-  onTertiaryButtonClick,
-  showButtons = ['primary', 'secondary'],
-  tertiaryButtonColor = 'red.500',
   titleTextSize = 'xl',
   primaryButtonIcon,
   secondaryButtonIcon,
-  tertiaryButtonIcon,
   loading = false,
+  ...rest
 }: ModalProps) => {
   const { t } = useTranslation('common');
   return (
@@ -51,9 +49,8 @@ const Modal = ({
       scrollBehavior="inside"
       open={isOpen}
       onOpenChange={(e) => !e.open && onClose()}
-      size="md"
       motionPreset="scale"
-      placement="center"
+      {...rest}
     >
       <Dialog.Backdrop style={{
         backdropFilter: 'blur(2px)',
@@ -61,36 +58,36 @@ const Modal = ({
       />
       <Dialog.Positioner>
         <Dialog.Content rounded="xl">
-          <Dialog.Header>
+          <Dialog.Header borderBottomWidth={1} borderColor="bg.muted">
             <Dialog.Title textStyle={titleTextSize}>
               {title}
             </Dialog.Title>
           </Dialog.Header>
           <Dialog.Body>
-            <Stack gap={3}>
+            <Stack gap={3} pt={2}>
               {body}
             </Stack>
           </Dialog.Body>
-          <Dialog.Footer justifyContent="space-between">
-            <Box ml="-16px" hidden={!showButtons?.includes('tertiary')}>
-              <Button
-                variant="plain"
-                onClick={onTertiaryButtonClick}
-                color={tertiaryButtonColor}
+          <Dialog.Footer justifyContent="space-between" borderTopWidth={1} borderColor="bg.muted">
+            {tertieryActionItem && (
+              <Box
+                {
+                  ...(tertieryActionItemAlignment === 'with-content' && {
+                    ml: '-16px'
+                  })
+                }
               >
-                {tertiaryButtonIcon}
-                {tertiaryButtonText ?? t('delete')}
-              </Button>
-            </Box>
+                {tertieryActionItem}
+              </Box>
+            )}
             <Group gap={3} flex={1} justifyContent="flex-end">
-              <Dialog.ActionTrigger asChild hidden={!showButtons?.includes('secondary')}>
+              <Dialog.ActionTrigger asChild>
                 <Button variant="outline" onClick={onSecondaryButtonClick || onClose}>
                   {secondaryButtonIcon}
                   {secondaryButtonText ?? t('cancel')}
                 </Button>
               </Dialog.ActionTrigger>
               <Button
-                hidden={!showButtons?.includes('primary')}
                 onClick={onPrimaryButtonClick}
                 loading={loading}
               >

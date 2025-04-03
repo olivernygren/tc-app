@@ -1,7 +1,7 @@
 {
   "exercises": "Exercises",
   "create-exercise": "Create exercise",
-  "create-exercise-description": "Give the exercise a name, select a primary muscle group and exercise equipment. You enter more advanced information below ",
+  "create-exercise-description": "Give the exercise a name, select a primary muscle group and exercise equipment. You can enter more advanced information by switching tabs",
   "CREATE_EXERCISE_FORM": {
     "exerciseName": {
       "label": "Exercise name",
@@ -27,7 +27,37 @@
       "errors": {
         "required": "Please select equipment"
       }
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Describe the proper execution",
+      "errors": {
+        "max-length": "Maximum 200 characters"
+      }
+    },
+    "youtubeVideoId": {
+      "label": "YouTube video ID",
+      "placeholder": "e.g. frcN0-aWxP",
+      "errors": {
+        "pattern": "Invalid video ID"
+      }
+    },
+    "secondaryMuscleGroups": {
+      "label": "Secondary muscle groups",
+      "placeholder": "e.g. Biceps, Rear delts, Traps",
+      "errors": {
+        "max-length": "Select a maximum of 5 muscle groups"
+      }
+    },
+    "fatigue": {
+      "label": "Fatigue rating",
+      "placeholder": "Level of fatigue"
+    },
+    "rangeOfMotionBias": {
+      "label": "R.O.M bias",
+      "placeholder": "Part of the movement the exercise is biased towards"
     }
   },
-  "advanced-info": "Advanced information"
+  "required-info": "Required info",
+  "advanced-info": "Advanced info"
 }

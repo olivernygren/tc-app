@@ -1,11 +1,11 @@
 import TCHead from '@/components/head/TCHead';
 import PageLayout from '@/components/layout/PageLayout';
-import Spinner from '@/lib/loading/Spinner';
 import Select from '@/lib/select/Select';
 import { LocaleEnum } from '@/utils/enums/enums';
 import { getUserById } from '@/utils/resolvers/server-side/users';
 import { updateUserPreferences } from '@/utils/resolvers/users';
 import { ExerciseLoadUnitEnum } from '@/utils/types/exercise';
+import { ValueChangeDetails } from '@/utils/types/general';
 import { User } from '@/utils/types/user';
 import {
   createListCollection, Heading, HStack, RadioGroup, Stack, Tabs, Text
@@ -83,14 +83,15 @@ const PreferencesContent = ({
   value, t, i18n, router, user
 }: PreferenceContentProps) => {
   const [selectedUnit, setSelectedUnit] = useState<ExerciseLoadUnitEnum | undefined>(user?.preferences?.weightUnit ?? ExerciseLoadUnitEnum.KG);
-  const [updateWeightUnitLoading, setUpdateWeightUnitLoading] = useState<boolean>(false);
 
   const languageOptions = [
     { value: LocaleEnum.SV, label: t('swedish') },
     { value: LocaleEnum.EN, label: t('english') },
   ];
 
-  const handleChangeLanguage = async (locale: LocaleEnum) => {
+  const handleChangeLanguage = async (item: ValueChangeDetails<LocaleEnum>) => {
+    const locale = item.value[0];
+
     if (user) {
       await updateUserPreferences(user.id, { language: locale });
     }
@@ -100,61 +101,64 @@ const PreferencesContent = ({
   };
 
   const handleUpdateWeightUnit = async (unit: ExerciseLoadUnitEnum) => {
-    setUpdateWeightUnitLoading(true);
     if (user) {
       await updateUserPreferences(user.id, { weightUnit: unit });
     }
 
-    setUpdateWeightUnitLoading(false);
     setSelectedUnit(unit);
     router.replace(router.asPath);
   };
 
   return (
     <Tabs.Content value={value}>
-      <Stack gap={3}>
-        <Stack gap={1}>
-          <Text fontWeight={500}>
-            {t('language')}
-          </Text>
-          <Text textStyle="sm" color="fg.muted">
-            {t('preferred-language-on-platform')}
-          </Text>
+      <Stack gap={6}>
+        <Stack gap={3}>
+          <Stack gap={1}>
+            <Text fontWeight={500}>
+              {t('language')}
+            </Text>
+            <Text textStyle="sm" color="fg.muted">
+              {t('preferred-language-on-platform')}
+            </Text>
+          </Stack>
+          <Select
+            collection={createListCollection({ items: languageOptions })}
+            value={[i18n.language]}
+            onChange={(item) => handleChangeLanguage(item as ValueChangeDetails<LocaleEnum>)}
+            placeholder={t('select-language')}
+            w={300}
+          />
         </Stack>
-        <Select
-          collection={createListCollection({ items: languageOptions })}
-          value={[i18n.language]}
-          onChange={(langValue) => handleChangeLanguage(langValue as unknown as LocaleEnum)}
-          placeholder={t('select-language')}
-          label={t('language')}
-        />
-      </Stack>
-      <Stack gap={3}>
-        <Stack gap={1}>
-          <Text fontWeight={500} textStyle="md">
-            {t('weight-unit')}
-          </Text>
-          <Text textStyle="sm" color="fg.muted">
-            {t('preferred-weight-unit')}
-          </Text>
+        <Stack gap={3}>
+          <Stack gap={1}>
+            <Text fontWeight={500} textStyle="md">
+              {t('weight-unit')}
+            </Text>
+            <Text textStyle="sm" color="fg.muted">
+              {t('preferred-weight-unit')}
+            </Text>
+          </Stack>
+          <RadioGroup.Root value={selectedUnit} onValueChange={(e) => handleUpdateWeightUnit(e.value as ExerciseLoadUnitEnum)}>
+            <HStack gap="6">
+              <RadioGroup.Item value={ExerciseLoadUnitEnum.KG}>
+                <RadioGroup.ItemHiddenInput />
+                <RadioGroup.ItemIndicator />
+                <RadioGroup.ItemText>{t('kg')}</RadioGroup.ItemText>
+              </RadioGroup.Item>
+              <RadioGroup.Item value={ExerciseLoadUnitEnum.LBS}>
+                <RadioGroup.ItemHiddenInput />
+                <RadioGroup.ItemIndicator />
+                <RadioGroup.ItemText>{t('lbs')}</RadioGroup.ItemText>
+              </RadioGroup.Item>
+            </HStack>
+          </RadioGroup.Root>
+          {/* {updateWeightUnitLoading && (
+            <Group>
+              <Spinner size="s" />
+              <Text>Sparar...</Text>
+            </Group>
+          )} */}
         </Stack>
-        <RadioGroup.Root value={selectedUnit} onValueChange={(e) => handleUpdateWeightUnit(e.value as ExerciseLoadUnitEnum)}>
-          <HStack gap="6">
-            <RadioGroup.Item value={ExerciseLoadUnitEnum.KG}>
-              <RadioGroup.ItemHiddenInput />
-              <RadioGroup.ItemIndicator />
-              <RadioGroup.ItemText>{t('kg')}</RadioGroup.ItemText>
-            </RadioGroup.Item>
-            <RadioGroup.Item value={ExerciseLoadUnitEnum.LBS}>
-              <RadioGroup.ItemHiddenInput />
-              <RadioGroup.ItemIndicator />
-              <RadioGroup.ItemText>{t('lbs')}</RadioGroup.ItemText>
-            </RadioGroup.Item>
-          </HStack>
-        </RadioGroup.Root>
-        {updateWeightUnitLoading && (
-        <Spinner size="s" />
-        )}
       </Stack>
     </Tabs.Content>
   );

@@ -32,6 +32,7 @@ export interface ExerciseSet {
   targetRIR?: number;
   actualRIR?: number;
   isCompleted: boolean;
+  dateISO: string;
 }
 
 export interface ExerciseLoad {
@@ -49,6 +50,7 @@ export interface ExerciseInput {
   rangeOfMotionBias?: RangeOfMotionBiasEnum;
   creatorId?: string;
   isCustomExercise?: boolean;
+  youtubeVideoId?: string;
 }
 
 export interface ExerciseProgressHistory {
@@ -57,50 +59,52 @@ export interface ExerciseProgressHistory {
 }
 
 export enum ExerciseEquipmentEnum {
-  BODYWEIGHT = 'Bodyweight',
-  DUMBBELL = 'Dumbbell',
-  BARBELL = 'Barbell',
-  EZ_BAR = 'EZ Bar',
-  BODYWEIGHT_LOADABLE = 'Bodyweight Loadable',
-  CABLE = 'Cable',
-  MACHINE = 'Machine',
-  ASSISTED_MACHINE = 'Assisted Machine',
-  SMITH_MACHINE = 'Smith Machine',
+  BODYWEIGHT = 'bodyweight',
+  DUMBBELL = 'dumbbell',
+  BARBELL = 'barbell',
+  EZ_BAR = 'ez-bar',
+  BODYWEIGHT_LOADABLE = 'bodyweight-loadable',
+  CABLE = 'cable',
+  MACHINE = 'machine',
+  ASSISTED_MACHINE = 'assisted-machine',
+  SMITH_MACHINE = 'smith-machine',
 }
 
 export enum MuscleGroupsEnum {
-  CHEST = 'Chest',
-  BACK = 'Back',
-  SHOULDERS = 'Shoulders',
-  BICEPS = 'Biceps',
-  TRICEPS = 'Triceps',
-  QUADS = 'Quads',
-  HAMSTRINGS = 'Hamstrings',
-  ADDUCTORS = 'Adductors',
-  GLUTES = 'Glutes',
-  CALVES = 'Calves',
-  FOREARMS = 'Forearms',
-  TRAPS = 'Traps',
-  NECK = 'Neck',
-  ABS = 'Abs',
+  CHEST = 'chest',
+  BACK = 'back',
+  SHOULDERS = 'shoulders',
+  BICEPS = 'biceps',
+  TRICEPS = 'triceps',
+  QUADS = 'quads',
+  HAMSTRINGS = 'hamstrings',
+  ADDUCTORS = 'adductors',
+  GLUTES = 'glutes',
+  CALVES = 'calves',
+  FOREARMS = 'forearms',
+  TRAPS = 'traps',
+  NECK = 'neck',
+  ABS = 'abs',
 }
 
 export enum SubMuscleGroupsEnum {
-  UPPER_CHEST = 'Upper Chest',
-  LOWER_CHEST = 'Lower Chest',
-  LATS = 'Lats',
-  UPPER_BACK = 'Upper Back',
-  LOWER_BACK = 'Lower Back',
-  SPINAL_ERECTORS = 'Spinal Erectors',
-  REAR_DELTS = 'Rear Delts',
-  SIDE_DELTS = 'Side Delts',
-  FRONT_DELTS = 'Front Delts',
-  TRICEP_LONG_HEAD = 'Tricep Long Head',
-  ROTATOR_CUFF = 'Rotator Cuff',
-  BRACHIALIS = 'Brachialis',
-  BRACHIORADIALIS = 'Brachioradialis',
-  FOREARM_FLEXORS = 'Forearm Flexors',
-  FOREARM_EXTENSORS = 'Forearm Extensors',
+  UPPER_CHEST = 'upper-chest',
+  LOWER_CHEST = 'lower-chest',
+  LATS = 'lats',
+  UPPER_BACK = 'upper-back',
+  LOWER_BACK = 'lower-back',
+  SPINAL_ERECTORS = 'spinal-erectors',
+  REAR_DELTS = 'rear-delts',
+  SIDE_DELTS = 'side-delts',
+  FRONT_DELTS = 'front-delts',
+  TRICEP_LONG_HEAD = 'tricep-long-head',
+  ROTATOR_CUFF = 'rotator-cuff',
+  BRACHIALIS = 'brachialis',
+  BRACHIORADIALIS = 'brachioradialis',
+  FOREARM_FLEXORS = 'forearm-flexors',
+  FOREARM_EXTENSORS = 'forearm-extensors',
+  SOLEUS = 'soleus',
+  GASTROCNEMIUS = 'gastroc',
 }
 
 export enum ExerciseFatigueEnum {

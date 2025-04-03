@@ -3,5 +3,61 @@
   "save": "Spara",
   "cancel": "Avbryt",
   "delete": "Radera",
-  "edit": "Redigera"
+  "edit": "Redigera",
+  "MUSCLE_GROUPS": {
+    "chest": "Bröst",
+    "back": "Rygg",
+    "shoulders": "Axlar",
+    "triceps": "Triceps",
+    "biceps": "Biceps",
+    "quads": "Framsida lår",
+    "hamstrings": "Baksida lår",
+    "calves": "Vader",
+    "abs": "Mage",
+    "glutes": "Rumpa",
+    "forearms": "Underarmar",
+    "traps": "Traps",
+    "adductors": "Adduktorer",
+    "neck": "Nacke",
+    "lats": "Lats",
+    "upper-chest": "Övre bröst",
+    "lower-chest": "Nedre bröst",
+    "upper-back": "Övre rygg",
+    "lower-back": "Ländrygg",
+    "spinal-erectors": "Spinal erectors",
+    "rear-delts": "Baksida axlar",
+    "side-delts": "Mitten axlar",
+    "front-delts": "Framsida axlar",
+    "tricep-long-head": "Triceps long head",
+    "rotator-cuff": "Rotator cuff",
+    "brachialis": "Brachialis",
+    "brachioradialis": "Brachioradialis",
+    "forearm-flexors": "Underarm nedre",
+    "forearm-extensors": "Underarm övre",
+    "soleus": "Soleus",
+    "gastroc": "Gastrocnemius"
+  },
+  "EQUIPMENT": {
+    "dumbbell": "Hantel",
+    "barbell": "Skivstång",
+    "cable": "Kabel",
+    "machine": "Maskin",
+    "bodyweight": "Kroppsvikt",
+    "bodyweight-loadable": "Kroppsvikt (lastbar)",
+    "assisted-machine": "Assisterad maskin",
+    "ez-bar": "EZ Bar",
+    "smith-machine": "Smithmaskin"
+  },
+  "FATIGUE_RATINGS": {
+    "LOW": "Låg",
+    "MEDIUM": "Medel",
+    "HIGH": "Hög",
+    "VERY_HIGH": "Mycket hög"
+  },
+  "RANGE_OF_MOTION_BIAS": {
+    "LENGTHENED": "Förlängd",
+    "MID": "Mitten",
+    "SHORTENED": "Kontraherad",
+    "FULL": "Jämnt fördelad"
+  }
 }

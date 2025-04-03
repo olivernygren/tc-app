@@ -1,7 +1,7 @@
 {
   "exercises": "Övningar",
   "create-exercise": "Skapa övning",
-  "create-exercise-description": "Ge övningen ett namn, primär muskelgrupp och redskap. Du kan även fylla i avcancerad information om du önskar.",
+  "create-exercise-description": "Ge övningen ett namn, primär muskelgrupp och redskap. Du kan även fylla i avancerad information genom att byta flik",
   "exercise-name": "Övningens namn",
   "CREATE_EXERCISE_FORM": {
     "exerciseName": {
@@ -28,7 +28,37 @@
       "errors": {
         "required": "Vänligen välj utrustning"
       }
+    },
+    "description": {
+      "label": "Beskrivning",
+      "placeholder": "Hur ska övningen utföras?",
+      "errors": {
+        "max-length": "Max 200 tecken"
+      }
+    },
+    "youtubeVideoId": {
+      "label": "YoutTube video ID",
+      "placeholder": "t.ex. frcN0-aWxP",
+      "errors": {
+        "pattern": "Ogiltigt video-ID"
+      }
+    },
+    "secondaryMuscleGroups": {
+      "label": "Sekundära muskelgrupper",
+      "placeholder": "t.ex. Biceps, Baksida axlar, Traps",
+      "errors": {
+        "max-length": "Välj max 5 sekundära muskelgrupper"
+      }
+    },
+    "fatigue": {
+      "label": "Fatigue-rating",
+      "placeholder": "Nivå av utmattning"
+    },
+    "rangeOfMotionBias": {
+      "label": "R.O.M bias",
+      "placeholder": "Del av rörelsen som övningen fokuserar på"
     }
   },
-  "advanced-info": "Avancerad information"
+  "required-info": "Obligatorisk info",
+  "advanced-info": "Avancerad info"
 }

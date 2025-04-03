@@ -1,5 +1,5 @@
 import {
-  Portal, Select as CSelect, SelectRootProps
+  Select as CSelect, SelectRootProps
 } from '@chakra-ui/react';
 
 // @ts-ignore
@@ -28,18 +28,16 @@ const Select = ({
         <CSelect.Indicator />
       </CSelect.IndicatorGroup>
     </CSelect.Control>
-    <Portal>
-      <CSelect.Positioner>
-        <CSelect.Content>
-          {props.collection.items.map((option) => (
-            <CSelect.Item item={option} key={option.value}>
-              {option.label}
-              <CSelect.ItemIndicator />
-            </CSelect.Item>
-          ))}
-        </CSelect.Content>
-      </CSelect.Positioner>
-    </Portal>
+    <CSelect.Positioner>
+      <CSelect.Content>
+        {props.collection.items.map((option) => (
+          <CSelect.Item item={option} key={option.value}>
+            {option.label}
+            <CSelect.ItemIndicator />
+          </CSelect.Item>
+        ))}
+      </CSelect.Content>
+    </CSelect.Positioner>
   </CSelect.Root>
 );
 export default Select;

@@ -132,7 +132,6 @@ const Sidebar = () => {
           size="lg"
           mt={4}
           onClick={handleSignOut}
-          // w="fit"
         >
           {t('sidebar.logout')}
         </Button>

@@ -3,5 +3,61 @@
   "save": "Save",
   "cancel": "Cancel",
   "delete": "Delete",
-  "edit": "Edit"
+  "edit": "Edit",
+  "MUSCLE_GROUPS": {
+    "chest": "Chest",
+    "back": "Back",
+    "shoulders": "Shoulders",
+    "triceps": "Triceps",
+    "biceps": "Biceps",
+    "quads": "Quads",
+    "hamstrings": "Hamstrings",
+    "calves": "Calves",
+    "abs": "Abs",
+    "glutes": "Glutes",
+    "forearms": "Forearms",
+    "traps": "Traps",
+    "adductors": "Adductors",
+    "neck": "Neck",
+    "lats": "Lats",
+    "upper-chest": "Upper Chest",
+    "lower-chest": "Lower Chest",
+    "upper-back": "Upper Back",
+    "lower-back": "Lower Back",
+    "spinal-erectors": "Spinal Erectors",
+    "rear-delts": "Rear Delts",
+    "side-delts": "Side Delts",
+    "front-delts": "Front Delts",
+    "tricep-long-head": "Triceps Long Head",
+    "rotator-cuff": "Rotator Cuff",
+    "brachialis": "Brachialis",
+    "brachioradialis": "Brachioradialis",
+    "forearm-flexors": "Forearm Flexors",
+    "forearm-extensors": "Forearm Extensors",
+    "soleus": "Soleus",
+    "gastroc": "Gastrocnemius"
+  },
+  "EQUIPMENT": {
+    "dumbbell": "Dumbbell",
+    "barbell": "Barbell",
+    "cable": "Cable",
+    "machine": "Machine",
+    "bodyweight": "Bodyweight",
+    "bodyweight-loadable": "Bodyweight (loadable)",
+    "assisted-machine": "Assisted Machine",
+    "ez-bar": "EZ Bar",
+    "smith-machine": "Smith Machine"
+  },
+  "FATIGUE_RATINGS": {
+    "LOW": "Low",
+    "MEDIUM": "Medium",
+    "HIGH": "High",
+    "VERY_HIGH": "Very high"
+  },
+  "RANGE_OF_MOTION_BIAS": {
+    "LENGTHENED": "Lengthened",
+    "MID": "Mid-range",
+    "SHORTENED": "Shortened",
+    "FULL": "Even throughout"
+  }
 }
